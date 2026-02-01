@@ -33,13 +33,14 @@ h2{text-align:center;font-size:2.5rem;margin-bottom:40px;color:#0f172a}
 
 /* GRID */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px}
-.card{background:white;border-radius:14px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+.card{background:white;border-radius:14px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.1);cursor:pointer;transition:transform .2s}
+.card:hover{transform:translateY(-5px)}
 .card img{width:100%;height:180px;object-fit:cover}
 .card div{padding:20px}
 .card h3{margin-bottom:10px}
 
 /* VIDEO */
-video{width:100%;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.15)}
+video{width:100%;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.15);margin-bottom:15px}
 
 /* QUIZZES */
 .quiz{background:white;padding:20px;margin-bottom:20px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.1)}
@@ -87,16 +88,24 @@ Transactional emails only (verification & course notifications)
 </p>
 </section>
 
-<!-- COURSES -->
+<!-- COURSES GRID -->
 <section id="courses">
 <h2>Programming Courses</h2>
 <div class="grid">
-<div class="card"><img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159"><div><h3>Python</h3><p>From beginner to advanced.</p></div></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71"><div><h3>JavaScript</h3><p>Frontend & backend.</p></div></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c"><div><h3>Web Development</h3><p>HTML, CSS, APIs.</p></div></div>
+<div class="card" onclick="openCourse('python')"><img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159"><div><h3>Python</h3><p>From beginner to advanced.</p></div></div>
+<div class="card" onclick="openCourse('javascript')"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71"><div><h3>JavaScript</h3><p>Frontend & backend.</p></div></div>
+<div class="card" onclick="openCourse('webdev')"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c"><div><h3>Web Development</h3><p>HTML, CSS, APIs.</p></div></div>
 <div class="card"><img src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935"><div><h3>Databases</h3><p>SQL & NoSQL basics.</p></div></div>
 <div class="card"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475"><div><h3>Algorithms</h3><p>Logic & problem solving.</p></div></div>
 </div>
+</section>
+
+<!-- COURSE DETAIL SECTION -->
+<section id="course-detail" style="display:none;">
+<button onclick="backToCourses()" style="margin-bottom:20px;">← Back to Courses</button>
+<h2 id="course-title"></h2>
+<div id="course-lessons"></div>
+<div id="course-videos"></div>
 </section>
 
 <!-- LESSONS -->
@@ -165,6 +174,75 @@ Transactional emails only (verification & course notifications)
 <a href="mailto:support@trezno.asia">support@trezno.asia</a>
 </p>
 </footer>
+
+<script>
+const courses = {
+  python: {
+    title: "Python Programming",
+    lessons: [
+      "Variables & Data Types",
+      "Conditions & Loops",
+      "Functions & Modules",
+      "Mini Project"
+    ],
+    videos: [
+      "https://www.w3schools.com/html/mov_bbb.mp4",
+      "https://www.w3schools.com/html/movie.mp4"
+    ]
+  },
+  javascript: {
+    title: "JavaScript Programming",
+    lessons: [
+      "Variables & Functions",
+      "DOM Manipulation",
+      "Events & API",
+      "Mini Project"
+    ],
+    videos: [
+      "https://www.w3schools.com/html/mov_bbb.mp4"
+    ]
+  },
+  webdev: {
+    title: "Web Development",
+    lessons: [
+      "HTML Basics",
+      "CSS Layouts",
+      "Responsive Design",
+      "APIs Integration"
+    ],
+    videos: [
+      "https://www.w3schools.com/html/mov_bbb.mp4"
+    ]
+  }
+};
+
+function openCourse(courseKey) {
+  const course = courses[courseKey];
+  document.getElementById('courses').style.display = 'none';
+  document.getElementById('course-detail').style.display = 'block';
+  document.getElementById('course-title').innerText = course.title;
+
+  // Lessons
+  let lessonsHTML = '<h3>Lessons</h3><ul>';
+  course.lessons.forEach(lesson => {
+    lessonsHTML += `<li>${lesson}</li>`;
+  });
+  lessonsHTML += '</ul>';
+  document.getElementById('course-lessons').innerHTML = lessonsHTML;
+
+  // Videos
+  let videosHTML = '<h3>Videos</h3>';
+  course.videos.forEach(video => {
+    videosHTML += `<video controls src="${video}"></video>`;
+  });
+  document.getElementById('course-videos').innerHTML = videosHTML;
+}
+
+function backToCourses() {
+  document.getElementById('course-detail').style.display = 'none';
+  document.getElementById('courses').style.display = 'block';
+}
+</script>
 
 </body>
 </html>
