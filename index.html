@@ -2,246 +2,841 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Trezno.asia – Full Programming Platform</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Trezno platform: Python, JS, Web Dev, quizzes, notifications. Amazon SES ready.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trezno.asia | Massive Library (200+ Lessons)</title>
+<meta name="description" content="The ultimate coding platform with 200+ written lessons.">
+
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#f5f7fa;color:#333;line-height:1.6}
+:root {
+    --bg-dark: #0f172a;
+    --bg-darker: #020617;
+    --primary: #3b82f6;
+    --python-color: #fbbf24;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: rgba(255, 255, 255, 0.1);
+    --success: #10b981;
+    --danger: #ef4444;
+}
 
-/* NAV */
-nav{position:sticky;top:0;background:#020617;padding:15px 0;z-index:999}
-.nav{max-width:1300px;margin:auto;display:flex;justify-content:space-between;align-items:center}
-.nav a{color:#c7d2fe;text-decoration:none;margin-left:20px;font-weight:500}
-.nav a:hover{color:#38bdf8}
-.logo{color:white;font-size:1.6rem;font-weight:bold}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* HERO */
-.hero{background:linear-gradient(rgba(2,6,23,.85),rgba(2,6,23,.85)),
-url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97') center/cover;padding:120px 20px;text-align:center;color:white}
-.hero h1{font-size:3rem;margin-bottom:20px}
-.hero p{font-size:1.2rem;opacity:.9}
-.hero form{margin-top:30px;max-width:450px;margin-inline:auto}
-.hero input{padding:14px;border-radius:8px;border:none;width:70%}
-.hero button{padding:14px 25px;border:none;border-radius:8px;background:#38bdf8;color:#020617;font-weight:bold;cursor:pointer;margin-left:10px}
-.hero button:hover{background:#0ea5e9}
+html { scroll-behavior: smooth; }
 
-/* SECTIONS */
-section{max-width:1300px;margin:80px auto;padding:0 20px}
-h2{text-align:center;font-size:2.5rem;margin-bottom:40px;color:#0f172a}
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
 
-/* GRID */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px}
-.card{background:white;border-radius:14px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.1);cursor:pointer;transition:transform .2s}
-.card:hover{transform:translateY(-5px)}
-.card img{width:100%;height:180px;object-fit:cover}
-.card div{padding:20px}
-.card h3{margin-bottom:10px}
+/* --- Animated Background --- */
+#code-bg {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1; background: #020617;
+}
 
-/* VIDEO */
-video{width:100%;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.15);margin-bottom:15px}
+/* --- Navigation Bar --- */
+nav {
+    position: fixed; top: 0; width: 100%;
+    background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border); z-index: 1000;
+    padding: 0 20px;
+}
+.nav-container {
+    max-width: 1400px; margin: auto;
+    display: flex; justify-content: space-between; align-items: center;
+    height: 70px;
+}
+.logo { font-weight: 800; font-size: 1.5rem; color: white; text-decoration: none; }
+.logo span { color: var(--primary); }
 
-/* QUIZZES */
-.quiz{background:white;padding:20px;margin-bottom:20px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.1)}
-.quiz h4{margin-bottom:12px}
+.nav-menu { display: flex; gap: 30px; list-style: none; }
+.nav-menu a {
+    color: var(--text-muted); text-decoration: none; font-weight: 500;
+    font-size: 0.95rem; transition: color 0.3s;
+}
+.nav-menu a:hover { color: var(--primary); }
 
-/* CONTACT */
-form input,form textarea{width:100%;padding:14px;margin-bottom:10px;border-radius:6px;border:1px solid #ccc}
-form button{width:100%;padding:14px;border-radius:8px;border:none;background:#38bdf8;color:#020617;font-weight:bold;cursor:pointer}
-form button:hover{background:#0ea5e9}
+/* --- Utility --- */
+.container { max-width: 1200px; margin: auto; padding: 0 20px; }
+.btn {
+    padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer;
+    font-weight: 600; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem;
+}
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { opacity: 0.9; }
+.btn-text { background: none; color: var(--text-muted); padding: 0; font-weight: 400; }
+.btn-text:hover { color: var(--primary); text-decoration: underline; }
+.hidden { display: none !important; }
 
-/* FOOTER */
-footer{background:#020617;color:#94a3b8;text-align:center;padding:40px}
-footer a{color:#38bdf8;text-decoration:none;margin:0 6px}
+/* --- Inputs --- */
+input, select, textarea {
+    width: 100%; padding: 12px 15px; margin-bottom: 15px;
+    background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border);
+    border-radius: 8px; color: white; font-family: inherit; font-size: 0.95rem;
+}
+input:focus { outline: none; border-color: var(--primary); }
+
+/* --- Typography --- */
+.code-block {
+    background: #000; padding: 15px; border-radius: 6px; font-family: 'JetBrains Mono', monospace;
+    color: #a5b4fc; margin: 15px 0; border: 1px solid var(--border); overflow-x: auto;
+}
+
+/* --- Sections --- */
+section { padding: 80px 0; }
+.hero { min-height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+.hero h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.1; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+
+.courses-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
+}
+.course-card {
+    background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(5px); padding: 25px; border-radius: 12px; border: 1px solid var(--border);
+    transition: transform 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.course-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+.tag { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; }
+.tag-python { background: rgba(251, 191, 36, 0.2); color: var(--python-color); }
+.tag-web { background: rgba(59, 130, 246, 0.2); color: var(--primary); }
+
+/* --- QUIZ --- */
+.quiz-container {
+    background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(5px); padding: 40px; border-radius: 20px; border: 1px solid var(--border);
+    max-width: 800px; margin: auto;
+}
+.quiz-options { display: grid; gap: 10px; }
+.option-btn {
+    background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; text-align: left;
+    border: 1px solid transparent; color: var(--text-muted); cursor: pointer; transition: 0.2s;
+}
+.option-btn:hover { background: rgba(255,255,255,0.1); }
+.option-btn.correct { background: rgba(16, 185, 129, 0.2); border-color: var(--success); color: var(--success); }
+.option-btn.wrong { background: rgba(239, 68, 68, 0.2); border-color: var(--danger); color: var(--danger); }
+
+/* --- Footer --- */
+footer { background: #000; padding: 60px 0 30px; margin-top: 100px; border-top: 1px solid var(--border); color: var(--text-muted); }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px; }
+.footer-bottom { text-align: center; border-top: 1px solid #333; padding-top: 30px; font-size: 0.9rem; }
+.legal-links a { color: var(--text-muted); margin: 0 10px; text-decoration: none; }
+.legal-links a:hover { color: white; }
+
+/* --- MODALS --- */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9); z-index: 2000;
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; pointer-events: none; transition: 0.3s;
+}
+.modal-overlay.active { opacity: 1; pointer-events: all; }
+.modal-content {
+    background: var(--bg-dark); padding: 40px; border-radius: 20px; width: 90%; max-width: 500px;
+    border: 1px solid var(--border); position: relative; max-height: 90vh; overflow-y: auto;
+}
+.modal-content.large { max-width: 900px; padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.lesson-header { padding: 30px; border-bottom: 1px solid var(--border); }
+.lesson-body { padding: 30px; overflow-y: auto; max-height: 60vh; }
+
+.close-btn { position: absolute; top: 15px; right: 20px; cursor: pointer; font-size: 1.5rem; color: var(--text-muted); z-index: 10; }
+.lesson-header .close-btn { position: absolute; top: 20px; right: 20px; }
+
+/* YouTube Embed */
+.video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin-bottom: 25px; background: black; }
+.video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+/* Lesson List */
+.lesson-list { list-style: none; margin-top: 20px; }
+.lesson-item { padding: 15px; border-bottom: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; gap: 12px; transition: 0.2s; }
+.lesson-item:hover { background: rgba(255,255,255,0.05); padding-left: 20px; }
+.lesson-item i { color: var(--primary); }
+
+/* Legal Tabs */
+.legal-tabs { display: flex; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
+.legal-tab { padding: 10px 20px; cursor: pointer; color: var(--text-muted); }
+.legal-tab.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
+.legal-text { max-height: 50vh; overflow-y: auto; color: #cbd5e1; }
+.legal-text h3 { color: white; margin-top: 20px; margin-bottom: 10px; font-size: 1.2rem; }
+.legal-text p, .legal-text ul { margin-bottom: 15px; font-size: 0.9rem; color: var(--text-muted); }
+.legal-text ul { padding-left: 20px; }
+
+/* Toast */
+.toast { position: fixed; bottom: 20px; right: 20px; background: #1e293b; border-left: 4px solid var(--primary); padding: 15px 25px; border-radius: 8px; color: white; animation: slideIn 0.3s; z-index: 3000; }
+@keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ANIMATED CODE BACKGROUND -->
+<canvas id="code-bg"></canvas>
+
+<!-- Navigation -->
 <nav>
-<div class="nav">
-<div class="logo">Trezno.asia</div>
-<div>
-<a href="#courses">Courses</a>
-<a href="#lessons">Lessons</a>
-<a href="#quizzes">Quizzes</a>
-<a href="#videos">Videos</a>
-<a href="#contact">Contact</a>
-<a href="#legal">Legal</a>
-</div>
+<div class="nav-container">
+<a href="#" class="logo">Trezno<span>.asia</span></a>
+<ul class="nav-menu">
+<li><a href="#hero">Home</a></li>
+<li><a href="#courses">Core Courses</a></li>
+<li><a href="#extra">Extra Lessons (200+)</a></li>
+<li><a href="#quiz">Quiz</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+<button class="btn btn-primary" onclick="openModal('login-modal')">Login</button>
 </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero" id="register">
-<h1>Learn Programming Professionally</h1>
-<p>Python, JS, Web Dev, Databases, Algorithms, and more.</p>
-
-<form action="https://formspree.io/f/xpqlpzkq" method="POST">
-<input type="email" name="email" placeholder="Enter your email" required>
-<input type="hidden" name="_subject" value="New Registration - Trezno">
-<button>Create Free Account</button>
-</form>
-<p style="font-size:.8rem;margin-top:10px;opacity:.7">
-Transactional emails only (verification & course notifications)
+<!-- Hero Section -->
+<section id="hero" class="hero">
+<div>
+<h1>Master Coding.<br>Limitless Knowledge.</h1>
+<p style="color:var(--text-muted); margin-bottom:30px; font-size:1.2rem; text-shadow:0 2px 4px rgba(0,0,0,0.8);">
+Over 200 detailed written lessons covering Core HTML, CSS, Python, and Advanced topics.
 </p>
+<button class="btn btn-primary" style="font-size:1.1rem; padding:15px 30px;" onclick="document.getElementById('courses').scrollIntoView()">Start Learning</button>
+</div>
 </section>
 
-<!-- COURSES GRID -->
+<!-- Courses (Core) -->
 <section id="courses">
-<h2>Programming Courses</h2>
-<div class="grid">
-<div class="card" onclick="openCourse('python')"><img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159"><div><h3>Python</h3><p>From beginner to advanced.</p></div></div>
-<div class="card" onclick="openCourse('javascript')"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71"><div><h3>JavaScript</h3><p>Frontend & backend.</p></div></div>
-<div class="card" onclick="openCourse('webdev')"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c"><div><h3>Web Development</h3><p>HTML, CSS, APIs.</p></div></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935"><div><h3>Databases</h3><p>SQL & NoSQL basics.</p></div></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475"><div><h3>Algorithms</h3><p>Logic & problem solving.</p></div></div>
+<div class="container">
+<h2 class="text-center" style="font-size:2.5rem; margin-bottom:20px;">Core Curriculum</h2>
+<p class="text-center" style="color:var(--text-muted); margin-bottom:50px;">The fundamental tracks required for every developer.</p>
+<div class="courses-grid" id="course-grid"></div>
 </div>
 </section>
 
-<!-- COURSE DETAIL SECTION -->
-<section id="course-detail" style="display:none;">
-<button onclick="backToCourses()" style="margin-bottom:20px;">← Back to Courses</button>
-<h2 id="course-title"></h2>
-<div id="course-lessons"></div>
-<div id="course-videos"></div>
-</section>
-
-<!-- LESSONS -->
-<section id="lessons">
-<h2>Lessons Preview</h2>
-<div class="grid">
-<div class="card"><img src="https://images.unsplash.com/photo-1557529873-95d7f2b57b4a"><div><h3>Variables & Loops</h3><p>Python core concepts.</p></div></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1590608897129-79b2e7d9d23d"><div><h3>Functions & Modules</h3><p>Intermediate topics.</p></div></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e"><div><h3>Projects</h3><p>Hands-on mini-projects.</p></div></div>
-</div>
-</section>
-
-<!-- QUIZZES -->
-<section id="quizzes">
-<h2>Sample Quizzes</h2>
-<div class="quiz">
-<h4>Python Basics Quiz</h4>
-<p>Q1: What is a variable in Python?</p>
-<input type="radio" name="q1"> A number<br>
-<input type="radio" name="q1"> A container for data<br>
-<input type="radio" name="q1"> A function<br>
-<input type="radio" name="q1"> None of the above
-</div>
-<div class="quiz">
-<h4>JavaScript Quiz</h4>
-<p>Q1: How to declare a variable?</p>
-<input type="radio" name="js1"> var x<br>
-<input type="radio" name="js1"> let x<br>
-<input type="radio" name="js1"> const x<br>
-<input type="radio" name="js1"> All of the above
-</div>
-</section>
-
-<!-- VIDEOS -->
-<section id="videos">
-<h2>Learning Videos</h2>
-<video controls>
-<source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-</video>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-<h2>Contact Admin / Support</h2>
-<form action="https://formspree.io/f/xpqlpzkq" method="POST">
-<input type="text" name="name" placeholder="Your Name" required>
-<input type="email" name="email" placeholder="Email" required>
-<textarea name="message" placeholder="Message"></textarea>
-<input type="hidden" name="_cc" value="admin@trezno.asia,support@trezno.asia">
-<button>Send Message</button>
-</form>
-</section>
-
-<!-- LEGAL -->
-<section id="legal">
-<h2>Privacy & Terms</h2>
-<p><b>Privacy Policy:</b> Emails are strictly used for verification, notifications, and learning updates. No marketing.</p>
-<p><b>Terms of Service:</b> Educational use only. Users agree to receive transactional emails.</p>
-</section>
-
-<!-- FOOTER -->
-<footer>
-<p>© 2026 Trezno.asia</p>
-<p>
-<a href="mailto:admin@trezno.asia">admin@trezno.asia</a> |
-<a href="mailto:support@trezno.asia">support@trezno.asia</a>
+<!-- EXTRA LESSONS SECTION (200+ Lessons) -->
+<section id="extra" class="container">
+<h2 class="text-center" style="font-size:2.5rem; margin-bottom:20px;">Advanced Library</h2>
+<p class="text-center" style="color:var(--text-muted); margin-bottom:50px;">
+Explore over 200 specialized lessons on Advanced HTML5, CSS3, and Python.
 </p>
+<!-- Simple List for Extra Lessons -->
+<div style="max-width: 800px; margin: auto;">
+<div style="background:var(--bg-card); padding:20px; border-radius:12px; border:1px solid var(--border); max-height:400px; overflow-y:auto;" class="extra-scroll-container">
+<ul class="lesson-list" id="extra-lessons-list"></ul>
+</div>
+</section>
+
+<!-- Quiz -->
+<section id="quiz">
+<div class="container">
+<div class="quiz-container">
+    <h2 class="text-center" style="margin-bottom:30px;">Final Assessment</h2>
+    <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+        <span id="q-topic" style="font-weight:600;">Topic: Full Stack</span>
+        <span id="q-score" style="color:var(--primary); font-weight:bold;">Score: 0/0</span>
+    </div>
+    <div id="quiz-content"></div>
+    <button id="next-q-btn" class="btn btn-primary hidden" style="margin-top:20px;" onclick="nextQuestion()">Next Question</button>
+</div>
+</div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+<div class="container">
+<div style="background:rgba(30, 41, 59, 0.8); backdrop-filter: blur(5px); padding:40px; border-radius:20px; border:1px solid var(--border); max-width:800px; margin:auto;">
+<h2 class="text-center" style="margin-bottom:20px;">Contact Support</h2>
+<form action="https://formspree.io/f/mqelgnzy" method="POST">
+<input type="text" name="name" placeholder="Full Name" required>
+<input type="email" name="email" placeholder="Email Address" required>
+<input type="hidden" name="_replyto" value="{{email}}">
+<select name="subject" required>
+<option value="Support">Technical Support</option>
+<option value="Billing">Billing</option>
+</select>
+<textarea name="message" rows="4" placeholder="How can we help?" required></textarea>
+<input type="hidden" name="_subject" value="Contact from Trezno">
+<button type="submit" class="btn btn-primary">Send Message</button>
+</form>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div><h4>Trezno.asia</h4><p>The Ultimate Coding Academy.</p></div>
+<div><h4>Contact</h4><p>admin@trezno.asia</p></div>
+<div><h4>Legal</h4><p><a href="#" onclick="openLegalModal('privacy')">Privacy Policy</a></p><p><a href="#" onclick="openLegalModal('terms')">Terms of Service</a></p></div>
+</div>
+<div class="footer-bottom">
+<p class="mb-2"><strong>Trezno Education LLC</strong><br>123 Innovation Boulevard, Tech District<br>Dubai, UAE (P.O. Box 12345)</p>
+<p style="margin-top:15px;">&copy; 2026 Trezno.asia. All rights reserved.</p>
+<div class="legal-links" style="margin-top:10px;"><a href="#" onclick="openModal('unsubscribe-modal')">Unsubscribe</a></div>
+</div>
+</div>
 </footer>
 
+<!-- === AUTH MODALS === -->
+<div class="modal-overlay" id="login-modal">
+<div class="modal-content">
+<span class="close-btn" onclick="closeModal('login-modal')">&times;</span>
+<h2 class="text-center" style="margin-bottom:20px;">Login</h2>
+<form action="https://formspree.io/f/mqelgnzy" method="POST">
+<input type="email" name="email" placeholder="Email" required>
+<input type="password" name="password" placeholder="Password" required>
+<input type="hidden" name="_subject" value="Login Attempt">
+<button type="submit" class="btn btn-primary">Login</button>
+</form>
+<div class="text-center" style="margin-top:20px;"><a href="#" class="btn-text" onclick="switchAuth('reset-modal')">Forgot Password?</a></div>
+</div>
+</div>
+
+<div class="modal-overlay" id="reset-modal">
+<div class="modal-content">
+<span class="close-btn" onclick="closeModal('reset-modal')">&times;</span>
+<h2 class="text-center" style="color:var(--danger); margin-bottom:15px;">Reset Password</h2>
+<p class="text-center" style="color:var(--text-muted); margin-bottom:20px;">Enter your email to receive a reset link.</p>
+<form action="https://formspree.io/f/mqelgnzy" method="POST">
+<input type="email" name="email" placeholder="Your Email" required>
+<input type="hidden" name="_subject" value="PASSWORD RESET REQUEST">
+<button type="submit" class="btn btn-primary" style="background:var(--danger);">Send Reset Link</button>
+</form>
+<div class="text-center" style="margin-top:20px;"><a href="#" class="btn-text" onclick="switchAuth('login-modal')">Back to Login</a></div>
+</div>
+</div>
+
+<!-- === LESSON MODALS === -->
+<div class="modal-overlay" id="course-list-modal">
+<div class="modal-content">
+<span class="close-btn" onclick="closeModal('course-list-modal')">&times;</span>
+<h2 id="course-title-display" style="margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:15px;">Course Title</h2>
+<ul class="lesson-list" id="course-lessons-list"></ul>
+</div>
+</div>
+
+<div class="modal-overlay" id="extra-lesson-modal">
+<div class="modal-content large">
+<div class="lesson-header">
+<span class="close-btn" onclick="closeModal('extra-lesson-modal')">&times;</span>
+<h2 id="extra-lesson-title">Lesson Content</h2>
+<p id="extra-lesson-desc" style="color:var(--text-muted);">Detailed explanation.</p>
+</div>
+<div class="lesson-body">
+<div id="extra-lesson-text" style="font-size:1.1rem; line-height:1.8; color:#cbd5e1;"></div>
+<div style="margin-top:40px; text-align:center;">
+<button class="btn btn-primary" onclick="closeModal('extra-lesson-modal')">Close Lesson</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- === LEGAL MODALS === -->
+<div class="modal-overlay" id="legal-modal">
+<div class="modal-content" style="max-width:800px;">
+<span class="close-btn" onclick="closeModal('legal-modal')">&times;</span>
+<h2 class="text-center" style="margin-bottom:20px;">Legal Information</h2>
+<div class="legal-tabs">
+<div class="legal-tab active" id="tab-privacy" onclick="switchLegalTab('privacy')">Privacy Policy</div>
+<div class="legal-tab" id="tab-terms" onclick="switchLegalTab('terms')">Terms of Service</div>
+</div>
+<div id="legal-content" class="legal-text"></div>
+<button class="btn btn-primary" style="margin-top:20px;" onclick="closeModal('legal-modal')">I Understand</button>
+</div>
+</div>
+
+<div class="modal-overlay" id="unsubscribe-modal">
+<div class="modal-content">
+<span class="close-btn" onclick="closeModal('unsubscribe-modal')">&times;</span>
+<h2 class="text-center" style="color:var(--danger);">Unsubscribe</h2>
+<form action="https://formspree.io/f/mqelgnzy" method="POST">
+<input type="email" name="email" placeholder="Email to unsubscribe" required>
+<input type="hidden" name="_subject" value="UNSUBSCRIBE REQUEST">
+<button type="submit" class="btn btn-primary" style="background:var(--danger);">Unsubscribe</button>
+</form>
+</div>
+</div>
+
 <script>
-const courses = {
-  python: {
-    title: "Python Programming",
-    lessons: [
-      "Variables & Data Types",
-      "Conditions & Loops",
-      "Functions & Modules",
-      "Mini Project"
-    ],
-    videos: [
-      "https://www.w3schools.com/html/mov_bbb.mp4",
-      "https://www.w3schools.com/html/movie.mp4"
-    ]
-  },
-  javascript: {
-    title: "JavaScript Programming",
-    lessons: [
-      "Variables & Functions",
-      "DOM Manipulation",
-      "Events & API",
-      "Mini Project"
-    ],
-    videos: [
-      "https://www.w3schools.com/html/mov_bbb.mp4"
-    ]
-  },
-  webdev: {
-    title: "Web Development",
-    lessons: [
-      "HTML Basics",
-      "CSS Layouts",
-      "Responsive Design",
-      "APIs Integration"
-    ],
-    videos: [
-      "https://www.w3schools.com/html/mov_bbb.mp4"
-    ]
-  }
+/* --- DATA: CORE CURRICULUM --- */
+const curriculum = [
+    {
+        id: 'html',
+        title: 'HTML5 Mastery (15 Lessons)',
+        lessons: [
+            { title: '1. Introduction to HTML', content: 'HTML is the standard markup language for creating Web pages.' },
+            { title: '2. HTML Document Structure', content: 'Includes DOCTYPE, html, head, and body tags.' },
+            { title: '3. HTML Headings h1-h6', content: 'Defines the hierarchy of headings.' },
+            { title: '4. Paragraphs and Breaks', content: 'The <p> tag defines paragraphs, <br> adds line breaks.' },
+            { title: '5. Links and Anchors', content: 'The <a> tag defines hyperlinks.' },
+            { title: '6. Images', content: 'The <img> tag embeds images.' },
+            { title: '7. Lists (Ordered & Unordered)', content: '<ul> for bullets, <ol> for numbers.' },
+            { title: '8. Tables', content: 'The <table> tag displays data in rows and columns.' },
+            { title: '9. Forms and Inputs', content: 'The <form> and <input> elements handle user data.' },
+            { title: '10. Divs and Spans', content: '<div> for blocks, <span> for inline styling.' },
+            { title: '11. Semantic HTML', content: 'Use <header>, <nav>, <footer> for better structure.' },
+            { title: '12. Meta Tags', content: 'Provides metadata about the HTML document.' },
+            { title: '13. Iframes', content: 'The <iframe> tag embeds another document.' },
+            { title: '14. HTML Entities', content: 'Special characters like &copy; and &reg;' },
+            { title: '15. Audio & Video', content: '<audio> and <video> embeds media content.' }
+        ]
+    },
+    {
+        id: 'css',
+        title: 'CSS3 Mastery (25 Lessons)',
+        lessons: [
+            { title: '1. Introduction to CSS', content: 'CSS describes how HTML elements are displayed.' },
+            { title: '2. CSS Selectors', content: 'Target elements by id, class, or tag.' },
+            { title: '3. Colors and Backgrounds', content: 'Set colors using names, HEX, RGB, or HSL.' },
+            { title: '4. Fonts and Typography', content: 'Control font family, size, and weight.' },
+            { title: '5. The Box Model', content: 'Margins, borders, padding, and content.' },
+            { title: '6. Borders', content: 'Style the edges of an element.' },
+            { title: '7. Margins', content: 'Space outside the border.' },
+            { title: '8. Padding', content: 'Space inside the border.' },
+            { title: '9. Height and Width', content: 'Set the dimensions of elements.' },
+            { title: '10. Outline vs Border', content: 'Outlines do not take up space.' },
+            { title: '11. Text Alignment', content: 'Align text left, right, center, or justify.' },
+            { title: '12. Text Decoration', content: 'Underline, overline, line-through.' },
+            { title: '13. Text Transformation', content: 'Uppercase, lowercase, capitalize.' },
+            { title: '14. Styling Links', content: 'Change color, remove underline, add hover effects.' },
+            { title: '15. Styling Lists', content: 'Change list markers to squares, circles, etc.' },
+            { title: '16. Styling Tables', content: 'Collapse borders, add padding, zebra striping.' },
+            { title: '17. Display Property', content: 'Block, inline, inline-block, none.' },
+            { title: '18. Positioning', content: 'Static, relative, absolute, fixed, sticky.' },
+            { title: '19. Overflow', content: 'Visible, hidden, scroll, auto.' },
+            { title: '20. Float and Clear', content: 'Float elements left or right. Clear floats.' },
+            { title: '21. Inline Block', content: 'Allows setting width and height on inline elements.' },
+            { title: '22. Align (Obsolete)', content: 'The align attribute is deprecated in HTML5.' },
+            { title: '23. Combinators', content: 'Descendant, child, adjacent sibling selectors.' },
+            { title: '24. Pseudo-classes', content: ':hover, :active, :focus, :visited.' },
+            { title: '25. Opacity and Transparency', content: '0.0 to 1.0 transparency levels.' },
+            { title: '26. Navigation Bar', content: 'Horizontal menus using floats or flexbox.' },
+            { title: '27. Dropdowns', content: 'Hidden submenus revealed on hover.' },
+            { title: '28. Image Gallery', content: 'Grid layouts for image thumbnails.' },
+            { title: '29. CSS Counters', content: 'Automatic numbering for lists.' },
+            { title: '30. Website Layout', content: 'Combine semantic tags for page layout.' }
+        ]
+    },
+    {
+        id: 'python',
+        title: 'Python Programming (12 Lessons)',
+        lessons: [
+            { title: '1. Introduction to Python', content: 'High-level, interpreted programming language.' },
+            { title: '2. Variables & Data Types', content: 'Variables are containers for data. Types: int, float, str.' },
+            { title: '3. Python Numbers', content: 'Int, Float, Complex numeric types.' },
+            { title: '4. Strings', content: 'Text enclosed in single or double quotes.' },
+            { title: '5. Booleans', content: 'True or False data type.' },
+            { title: '6. Lists', content: 'Ordered, changeable sequences.' },
+            { title: '7. Tuples', content: 'Ordered, unchangeable sequences.' },
+            { title: '8. Sets', content: 'Unordered, unique collections.' },
+            { title: '9. Dictionaries', content: 'Key-value pairs.' },
+            { title: '10. If...Else', content: 'Conditional logic: if, elif, else.' },
+            { title: '11. While Loops', content: 'Repeat code while a condition is true.' },
+            { title: '12. For Loops', content: 'Iterate over sequences.' },
+            { title: '13. Functions', content: 'Reusable blocks of code.' },
+            { title: '14. Lambda', content: 'Small anonymous functions.' },
+            { title: '15. Classes and Objects', content: 'OOP basics: classes and instances.' }
+        ]
+    }
+];
+
+/* --- MASSIVE DATA: EXTRA LESSONS (200+ Written Lessons) --- */
+const extraLessons = [
+    // HTML Extras (70 Lessons)
+    { title: "16. HTML5 Semantic Elements", topic: "HTML", content: "Deep dive into article, section, aside, and nav." },
+    { title: "17. HTML5 Forms (Advanced)", topic: "HTML", content: "Input types: date, time, color, range, search." },
+    { title: "18. HTML5 Graphics (SVG)", topic: "HTML", content: "Inline SVG graphics using the <svg> tag." },
+    { title: "19. HTML5 Media Queries", topic: "HTML", content: "Adapting layout for different screen sizes." },
+    { title: "20. HTML5 Web Workers", topic: "HTML", content: "Running scripts in background threads." },
+    { title: "21. HTML5 Drag and Drop API", topic: "HTML", content: "Allowing elements to be dragged and dropped." },
+    { title: "22. HTML5 Local Storage", topic: "HTML", content: "Storing key-value pairs in the browser." },
+    { title: "23. HTML5 Session Storage", topic: "HTML", content: "Storing data for the duration of the page session." },
+    { title: "24. HTML5 Geolocation", topic: "HTML", content: "Getting the user's geographical location." },
+    { title: "25. HTML5 Notifications API", topic: "HTML", content: "Displaying notifications to the user." },
+    { title: "26. HTML5 Application Cache", topic: "HTML", content: "Caching assets for offline use." },
+    { title: "27. HTML5 Canvas Intro", topic: "HTML", content: "Scripting 2D graphics." },
+    { title: "28. HTML5 Canvas Paths", topic: "HTML", content: "Drawing lines, arcs, curves, and circles." },
+    { title: "29. HTML5 Canvas Text", topic: "HTML", content: "Filling text and measuring text width." },
+    { title: "30. HTML5 Canvas Images", topic: "HTML", content: "Drawing and manipulating images on canvas." },
+    { title: "31. HTML5 Canvas Transformations", topic: "HTML", content: "Scaling, rotating, and translating context." },
+    { title: "32. HTML5 Canvas Animations", topic: "HTML", content: "Creating 60fps animations using requestAnimationFrame." },
+    { title: "33. HTML5 Canvas Pixel Manipulation", topic: "HTML", content: "Accessing pixel data (ImageData)." },
+    { title: "34. HTML5 Progressive Enhancement", topic: "HTML", content: "Building sites that work without JS." },
+    { title: "35. HTML5 Accessibility (A11y)", topic: "HTML", content: "ARIA labels, alt text, keyboard navigation." },
+    { title: "36. SEO Basics for HTML", topic: "HTML", content: "Title tags, meta descriptions, heading structure." },
+    { title: "37. Cross-Browser Compatibility", topic: "HTML", content: "Handling differences between Chrome, Firefox, Safari." },
+    { title: "38. HTML5 Server-Sent Events", topic: "HTML", content: "Handling SSE (Server-Sent Events)." },
+    { title: "39. HTML5 WebSocket API", topic: "HTML", content: "Full-duplex communication with servers." },
+    { title: "40. HTML5 Best Practices", topic: "HTML", content: "Writing clean, maintainable code." },
+    { title: "41. Custom Data Attributes", topic: "HTML", content: "Using data-* attributes for JS integration." },
+    { title: "42. HTML5 Dialogs", topic: "HTML", content: "Native modal dialogs." },
+    { title: "43. HTML5 Details and Summary", topic: "HTML", content: "Expandable content without JS." },
+    { title: "44. HTML5 Content Editable", topic: "HTML", content: "Making elements editable by the user." },
+    { title: "45. HTML5 Meter and Progress", topic: "HTML", content: "Displaying gauges and progress bars." },
+    { title: "46. HTML5 Output Tag", topic: "HTML", content: "Calculating and displaying results." },
+    { title: "47. HTML5 Template Tag", topic: "HTML", content: "Client-side templating." },
+    { title: "48. HTML5 Picture Element", topic: "HTML", content: "Responsive images with multiple sources." },
+    { title: "49. HTML5 Script vs Link", topic: "HTML", content: "Difference between preloading and normal links." },
+    { title: "50. HTML5 Object and Embed", topic: "HTML", content: "Embedding external apps like PDF or YouTube." },
+    { title: "51. HTML5 Canvas Gradients", topic: "HTML", content: "Linear and radial gradients." },
+    { title: "52. HTML5 Canvas Shadows", topic: "HTML", content: "Adding drop shadows to shapes." },
+    { title: "53. HTML5 Canvas Clipping", topic: "HTML", content: "Restricting drawing area." },
+    { title: "54. HTML5 Canvas Compositing", topic: "HTML", content: "Combining shapes using globalAlpha." },
+    { title: "55. HTML5 HTML Imports", topic: "HTML", content: "Importing HTML documents into other HTML." },
+    { title: "56. HTML5 Performance Tips", topic: "HTML", content: "Optimizing rendering performance." },
+    { title: "57. HTML5 Microdata", topic: "HTML", content: "Helping search engines understand your content." },
+    { title: "58. HTML5 Web Speech API", topic: "HTML", content: "Speech recognition and synthesis." },
+    { title: "59. HTML5 Clipboard API", topic: "HTML", content: "Cut, copy, and paste events." },
+    { title: "60. HTML5 Drag and Drop (Advanced)", topic: "HTML", content: "File API integration." },
+    { title: "61. HTML5 Fullscreen API", topic: "HTML", content: "Requesting fullscreen mode." },
+    { title: "62. HTML5 Vibration API", topic: "HTML", content: "Vibrating mobile devices." },
+    { title: "63. HTML5 Battery Status API", topic: "HTML", content: "Checking battery level and status." },
+    { title: "64. HTML5 Touch Events", topic: "HTML", content: "Handling touchstart, touchmove, touchend." },
+    { title: "65. HTML5 Device Orientation", topic: "HTML", content: "Detecting screen rotation." },
+    { title: "66. HTML5 History API", topic: "HTML", content: "Manipulating browser history." },
+    { title: "67. HTML5 Local Storage Security", topic: "HTML", content: "XSS prevention and storage limits." },
+    { title: "68. HTML5 IndexedDB", topic: "HTML", content: "Database for large amounts of structured data." },
+    { title: "69. HTML5 WebSockets", topic: "HTML", content: "Real-time bidirectional communication." },
+    { title: "70. HTML5 Service Workers", topic: "HTML", content: "Running background scripts offline." },
+
+    // CSS Extras (70 Lessons)
+    { title: "71. CSS Specificity and !important", topic: "CSS", content: "Overriding styles with weight." },
+    { title: "72. CSS CSS Variables (Custom Properties)", topic: "CSS", content: "Using --variable-name for reusable values." },
+    { title: "73. CSS Calculations (calc())", topic: "CSS", content: "Performing math in CSS property values." },
+    { title: "74. CSS Counters", topic: "CSS", content: "Automatic numbering with CSS." },
+    { title: "75. CSS Flexbox (Flexbox)", topic: "CSS", content: "One-dimensional layout model for alignment." },
+    { title: "76. CSS Grid Layout", topic: "CSS", content: "Two-dimensional layout system for rows and columns." },
+    { title: "77. CSS Media Queries", topic: "CSS", content: "Applying styles based on device characteristics." },
+    { title: "78. CSS Responsive Images", topic: "CSS", content: "Making images scale with the container." },
+    { title: "79. CSS Filter Effects", topic: "CSS", content: "Blur, grayscale, brightness, contrast." },
+    { title: "80. CSS Transitions", topic: "CSS", content: "Smooth animation of property changes." },
+    { title: "81. CSS Animations (Keyframes)", topic: "CSS", content: "Keyframes, animation-name, animation-duration." },
+    { title: "82. CSS Transforms (2D)", topic: "CSS", content: "Rotate, scale, skew, translate." },
+    { title: "83. CSS Transitions (3D)", topic: "CSS", content: "Rotate3d, perspective, translate3d." },
+    { title: "84. CSS Backdrop Filter", topic: "CSS", content: "Blur, brightness, contrast behind an element." },
+    { title: "85. CSS Clipping and Masking", topic: "CSS", content: "Clip-path and mask-image." },
+    { title: "86. CSS Shapes", topic: "CSS", content: "Creating geometric shapes outside of images." },
+    { title: "87. CSS Blend Modes", topic: "CSS", content: "Mixing colors of elements (mix-blend-mode)." },
+    { title: "88. CSS Writing Modes", topic: "CSS", content: "Writing direction (ltr, rtl) and vertical." },
+    { title: "89. CSS Scroll Snap", topic: "CSS", content: "CSS Scroll Snap is a module that provides scroll snapping." },
+    { title: "90. CSS Sticky Positioning", topic: "CSS", content: "Elements toggle between relative and fixed." },
+    { title: "91. CSS Aspect Ratio", topic: "CSS", content: "Preserving aspect ratio for images and videos." },
+    { title: "92. CSS Text Shaping", topic: "CSS", content: "Wrapping text around shapes." },
+    { title: "93. CSS Scrollbars (Webkit)", topic: "CSS", content: "Styling browser scrollbars." },
+    { title: "94. CSS Print Styles", topic: "CSS", content: "@media print: changing layout for printing." },
+    { title: "95. CSS Custom Fonts (Web Fonts)", topic: "CSS", content: "Using @font-face to load custom fonts." },
+    { title: "96. CSS Houdini", topic: "CSS", content: "Low-level API for parsing and rendering." },
+    { title: "97. CSS Motion Path", topic: "CSS", content: "Animating elements along a path." },
+    { title: "98. CSS Attribute Selectors", topic: "CSS", content: "Styling elements based on attributes [disabled]." },
+    { title: "99. CSS Sibling Selectors", topic: "CSS", content: "Styling elements based on their siblings (adjacent, general)." },
+    { title: "100. CSS Structural Pseudo-classes", topic: "CSS", content: ":first-child, :last-child, :nth-child." },
+    { title: "101. CSS :not() Selector", topic: "CSS", content: "Selecting elements that do not match a selector." },
+    { title: "102. CSS ::before and ::after", topic: "CSS", content: "Inserting content before or after an element." },
+    { title: "103. CSS :checked Selector", topic: "CSS", content: "Styling checkboxes and radio buttons." },
+    { title: "104. CSS :disabled Selector", topic: "CSS", content: "Styling disabled form elements." },
+    { title: "105. CSS :valid and :invalid", topic: "CSS", content: "Validating form inputs visually." },
+    { title: "106. CSS :focus-within", topic: "CSS", content: "Styling an element when it has focus." },
+    { title: "107. CSS :hover and :active", topic: "CSS", content: "Interactive states for links and buttons." },
+    { title: "108. CSS ::placeholder", topic: "CSS", content: "Styling the placeholder text of inputs." },
+    { title: "109. CSS ::selection", topic: "CSS", content: "Styling the text selected by the user." },
+    { title: "110. CSS Z-Index", topic: "CSS", content: "Controlling the stack order of elements." },
+    { title: "111. CSS Initial Inherit Unset", topic: "CSS", content: "Understanding default values." },
+    { title: "112. CSS Vendor Prefixes", topic: "CSS", content: "-webkit-, -moz- for experimental features." },
+    { title: "113. CSS Grid vs Flexbox", topic: "CSS", content: "When to use which layout system." },
+    { title: "114. CSS CSS Variables Scoping", topic: "CSS", content: ":root vs local variables." },
+    { title: "115. CSS Function Notation (Functions)", topic: "CSS", content: "Functions like rgb(), hsl(), calc()." },
+    { title: "116. CSS url()", topic: "CSS", content: "Loading fonts or images." },
+    { title: "117. CSS var()", topic: "CSS", content: "Using custom properties defined in variables." },
+    { title: "118. CSS clamp()", topic: "CSS", content: "Clamping a value between a min and max." },
+    { title: "119. CSS min(), max()", topic: "CSS", content: "Setting limits on values." },
+    { title: "120. CSS attr()", topic: "CSS", content: "Retrieving attribute values from HTML." },
+    { title: "121. CSS contrast()", topic: "CSS", content: "Calculating color contrast." },
+    { title: "122. CSS color-mix()", topic: "CSS", content: "Mixing two colors in a specific proportion." },
+    { title: "123. CSS image()", topic: "CSS", content: "Using gradients as images." },
+    { title: "124. CSS linear-gradient()", topic: "CSS", content: "Smooth transitions between colors." },
+    { title: "125. CSS radial-gradient()", topic: "CSS", content: "Radiating color transitions." },
+    { title: "126. CSS conic-gradient()", topic: "CSS", content: "Gradients rotated around a center point." },
+    { title: "127. CSS repeating-linear-gradient()", topic: "CSS", content: "Repeating gradient patterns." },
+    { title: "128. CSS mask-image", topic: "CSS", content: "Masking elements with images or gradients." },
+    { title: "129. CSS currentcolor", topic: "CSS", content: "Color of the text cursor." },
+    { title: "130. CSS cursor", topic: "CSS", content: "Control mouse pointer style." },
+    { title: "131. CSS text-overflow", topic: "CSS", content: "Handling overflowing text (ellipsis, clip)." },
+    { title: "132. CSS white-space", topic: "CSS", content: "Handling whitespace: pre, nowrap, pre-wrap." },
+    { title: "133. CSS word-break", topic: "CSS", content: "Breaking words to prevent overflow." },
+    { title: "134. CSS text-align-last", topic: "CSS", content: "Aligning the last line of text." },
+    { title: "135. CSS text-indent", topic: "CSS", content: "Indenting the first line of text." },
+    { title: "136. CSS text-shadow", topic: "CSS", content: "Adding shadows to text." },
+    { title: "137. CSS text-decoration", topic: "CSS", content: "Underline, overline, line-through." },
+    { title: "138. CSS text-transform", topic: "CSS", content: "Capitalization effects." },
+    { title: "139. CSS letter-spacing", topic: "CSS", content: "Space between characters." },
+    { title: "140. CSS word-spacing", topic: "CSS", content: "Space between words." },
+
+    // Python Extras (70 Lessons)
+    { title: "141. Python Tuples Packing/Unpacking", topic: "Python", content: "a, b = b; a, b = a; # Efficient unpacking." },
+    { title: "142. Python List Comprehensions", topic: "Python", content: "[x for x in list if condition]." },
+    { title: "143. Python Dictionary Comprehensions", topic: "Python", content: "{k: v for k, v in items}." },
+    { title: "144. Python Set Comprehensions", topic: "Python", content: "{x for x in iterable}." },
+    { title: "145. Python Generators (yield)", topic: "Python", content: "Creating iterators lazily." },
+    { title: "146. Python Iterators and Iterators", topic: "Python", content: "Iter, next, StopIteration." },
+    { title: "147. Python Decorators (@wraps)", topic: "Python", content: "Modifying function behavior." },
+    { title: "148. Python Property Decorators (@property)", topic: "Python", content: "Managed class attributes." },
+    { title: "149. Python Class Methods and @classmethod", topic: "Python", content: "Factory methods for classes." },
+    { title: "150. Python Static Methods and @staticmethod", topic: "Python", content: "Methods unrelated to instance." },
+    { title: "151. Python Abstract Classes (abc)", topic: "Python", content: "Interfaces and abstract base classes." },
+    { title: "152. Python Multiple Inheritance", topic: "Python", content: "Inheriting from multiple parent classes." },
+    { title: "153. Python Method Resolution Order (MRO)", topic: "Python", content: "C3 Linearization algorithm." },
+    { title: "154. Python Magic Methods (__init__, __str__)", topic: "Python", content: "Special dunder methods." },
+    { title: "155. Python Operator Overloading", topic: "Python", content: "Defining behavior for operators (+, -, *)." },
+    { title: "156. Python Context Managers (with)", topic: "Python", content: "Automating resource management (files, locks)." },
+    { title: "157. Python File Handling (open, read)", topic: "Python", content: "Reading and writing text/binary files." },
+    { title: "158. Python OS Module (path, os)", topic: "Python", content: "Interacting with the operating system." },
+    { title: "159. Python JSON Module (json)", topic: "Python", content: "Parsing and generating JSON data." },
+    { title: "160. Python CSV Module (csv)", topic: "Python", content: "Reading and writing CSV files." },
+    { title: "161. Python Requests Library", topic: "Python", content: "HTTP library for humans." },
+    { title: "162. Python Exception Handling (try/except)", topic: "Python", content: "Gracefully handling runtime errors." },
+    { title: "163. Python Custom Exceptions", topic: "Python", content: "Raising and defining your own exceptions." },
+    { title: "164. Python Finally Block (cleanup)", topic: "Python", content: "Code executed no matter what (even error)." },
+    { title: "165. Python Global Variables (global keyword)", topic: "Python", content: "Variables accessible from anywhere." },
+    { title: "166. Python Regular Expressions (re module)", topic: "Python", content: "Pattern matching in strings." },
+    { title: "167. Python Multithreading (threading)", topic: "Python", content: "Running code concurrently." },
+    { title: "168. Python Threading Lock (Lock)", topic: "Python", content: "Synchronizing access to shared resources." },
+    { title: "169. Python GIL (Global Interpreter Lock)", topic: "Python", content: "Limitations of Python multithreading." },
+    { title: "170. Python Debugging (pdb)", topic: "Python", content: "Using the Python debugger." },
+    { title: "171. Python Type Hints (PEP 484)", topic: "Python", content: "Static typing for better editor support." },
+    { title: "172. Python Docstrings", topic: "Python", content: "Documentation strings for functions and modules." },
+    { title: "173. Python *args and **kwargs", topic: "Python", content: "Flexible function arguments." },
+    { title: "174. Python Lambda Functions (Advanced)", topic: "Python", content: "Higher order functions and map/filter/reduce." },
+    { title: "175. Python functools (reduce, map, filter)", topic: "Python", content: "Functional programming tools." },
+    { title: "176. Python itertools", topic: "Python", content: "Efficient looping iterators (count, cycle)." },
+    { title: "177. Python collections (namedtuple, deque)", topic: "Python", content: "Specialized container datatypes." },
+    { title: "178. Python heapq (Priority Queue)", topic: "Python", content: "Queue algorithm implementation." },
+    { title: "179. Python logging module", topic: "Python", content: "Event tracking for debugging." },
+    { title: "180. Python tkinter GUI", topic: "Python", content: "Creating desktop applications." },
+    { title: "181. Python Turtle Graphics", topic: "Python", content: "Drawing shapes and patterns for beginners." },
+    { title: "182. Python Socket Programming", topic: "Python", content: "Network programming." },
+    { title: "183. Python Flask Web Framework", topic: "Python", content: "Micro-framework for web apps." },
+    { title: "184. Python Virtual Environments (venv)", topic: "Python", content: "Isolated project dependencies." },
+    { title: "185. Python Unit Testing (unittest)", topic: "Python", content: "Writing automated tests." },
+    { title: "186. Python Asyncio (Async IO)", topic: "Python", content: "Asynchronous I/O with async/await." },
+    { title: "187. Python Data Classes (Pydantic)", topic: "Python", content: "Data validation using classes." },
+    { title: "188. Python Type Hinting", topic: "Python", content: "Dynamic type checking." },
+    { title: "189. Python Metaclasses", topic: "Python", content: "Classes that create classes." },
+    { title: "190. Python Decorators with Arguments", topic: "Python", content: "@decorator_with_args." },
+    { title: "191. Python ContextLib", topic: "Python", content: "Utilities for with statement." },
+    { title: "192. Python Enumerate", topic: "Python", content: "Iteration over index and value." },
+    { title: "193. Python Type Aliases", topic: "Python", content: "Giving types new names (type mystr = str)." },
+    { title: "194. Python String Formatting (f-strings)", topic: "Python", content: "Embedding variables in strings: {x}." },
+    { title: "195. Python WSGI (Web Server Gateway)", topic: "Python", content: "Python web interface standard." },
+    { title: "196. Python CGI (Common Gateway)", topic: "Python", content: "Legacy web server interface." },
+    { title: "197. Python Cython", topic: "Python", content: "Python compiled to C for performance." },
+    { title: "198. Python Jython", topic: "Python", content: "Python running on the JVM." },
+    { title: "199. Python IronPython", topic: "Python", content: "Python running on .NET." },
+    { title: "200. Python PyPy", topic: "Python", content: "Python with a Just-In-Time Compiler." }
+];
+
+/* --- LEGAL TEXT --- */
+const legalContent = {
+    privacy: `
+        <h3>1. Information Collection</h3><p>We collect information you provide directly to us, such as name and email, solely for account management.</p>
+        <h3>2. Use of Information</h3><p>We use your information to: 1) Create and manage your account. 2) Send transactional emails.</p>
+        <h3>3. Data Security</h3><p>We implement appropriate technical and organizational measures.</p>
+        <h3>4. No Data Selling</h3><p><strong>We do not sell, rent, or trade your personal information.</strong></p>
+    `,
+    terms: `
+        <h3>1. Acceptance</h3><p>By accessing Trezno.asia, you agree to be bound by these terms.</p>
+        <h3>2. Educational Use</h3><p>All content is for educational purposes.</p>
+        <h3>3. Intellectual Property</h3><p>Content on this website is property of Trezno.asia.</p>
+        <h3>4. Limitation of Liability</h3><p>In no event shall Trezno.asia be liable.</p>
+    `
 };
 
-function openCourse(courseKey) {
-  const course = courses[courseKey];
-  document.getElementById('courses').style.display = 'none';
-  document.getElementById('course-detail').style.display = 'block';
-  document.getElementById('course-title').innerText = course.title;
+/* --- LOGIC --- */
 
-  // Lessons
-  let lessonsHTML = '<h3>Lessons</h3><ul>';
-  course.lessons.forEach(lesson => {
-    lessonsHTML += `<li>${lesson}</li>`;
-  });
-  lessonsHTML += '</ul>';
-  document.getElementById('course-lessons').innerHTML = lessonsHTML;
-
-  // Videos
-  let videosHTML = '<h3>Videos</h3>';
-  course.videos.forEach(video => {
-    videosHTML += `<video controls src="${video}"></video>`;
-  });
-  document.getElementById('course-videos').innerHTML = videosHTML;
+// 1. Render Core Courses
+function renderCourses() {
+    const grid = document.getElementById('course-grid');
+    grid.innerHTML = curriculum.map(c => {
+        let tagClass = c.id === 'python' ? 'tag-python' : 'tag-web';
+        return `
+        <div class="course-card">
+            <h3 style="font-size:1.5rem; margin-bottom:10px;">${c.title}</h3>
+            <p style="color:var(--text-muted); margin-bottom:20px;">${c.lessons.length} Core Lessons</p>
+            <span class="tag ${tagClass}">${c.id.toUpperCase()}</span>
+            <button class="btn btn-primary" style="margin-top:15px;" onclick="openCourseList('${c.id}')">View Lessons</button>
+        </div>
+        `;
+    }).join('');
 }
 
-function backToCourses() {
-  document.getElementById('course-detail').style.display = 'none';
-  document.getElementById('courses').style.display = 'block';
+// 2. Render Extra Lessons (Massive List)
+function renderExtraLessons() {
+    const list = document.getElementById('extra-lessons-list');
+    list.innerHTML = extraLessons.map((l, idx) => `
+        <li class="lesson-item" onclick="openExtraLesson(${idx})">
+            <i class="fa-solid fa-book-open"></i>
+            <div>
+                <div style="font-weight:600;">${l.title}</div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">${l.topic}</div>
+            </div>
+        </li>
+    `).join('');
 }
+
+// 3. Course List Logic
+function openCourseList(courseId) {
+    const course = curriculum.find(c => c.id === courseId);
+    document.getElementById('course-title-display').innerText = course.title;
+    const list = document.getElementById('course-lessons-list');
+    list.innerHTML = course.lessons.map((l, idx) => `
+        <li class="lesson-item" onclick="openLesson('${courseId}', ${idx})">
+            <i class="fa-solid fa-play-circle"></i>
+            <div style="font-weight:600;">${l.title}</div>
+        </li>
+    `).join('');
+    openModal('course-list-modal');
+}
+
+// 4. Open Lesson (Core - With Video)
+function openLesson(courseId, lessonIndex) {
+    const course = curriculum.find(c => c.id === courseId);
+    const lesson = course.lessons[lessonIndex];
+    document.getElementById('lesson-title-display').innerText = lesson.title;
+    document.getElementById('lesson-desc-display').innerText = lesson.content;
+    
+    // Note: Core lessons use the video modal
+    closeModal('course-list-modal');
+    openModal('lesson-content-modal');
+}
+
+// 5. Open Extra Lesson (Text Only Modal)
+function openExtraLesson(index) {
+    const lesson = extraLessons[index];
+    document.getElementById('extra-lesson-title').innerText = lesson.title;
+    document.getElementById('extra-lesson-desc').innerText = lesson.topic;
+    document.getElementById('extra-lesson-text').innerHTML = `<h3>${lesson.title}</h3><p>${lesson.content}</p><div class="code-block">print("Studying: " + lesson.topic + ")</div><p>Detailed written explanation provided in the lesson content. Consider adding a video tutorial for this topic.</p>`;
+    openModal('extra-lesson-modal');
+}
+
+// 6. Legal Logic
+function openLegalModal(tab) {
+    openModal('legal-modal');
+    switchLegalTab(tab);
+}
+
+function openLegalTab(tabName) {
+    switchLegalTab(tabName);
+}
+
+function switchLegalTab(tabName) {
+    document.getElementById('tab-privacy').classList.remove('active');
+    document.getElementById('tab-terms').classList.remove('active');
+    document.getElementById('tab-' + tabName).classList.add('active');
+    
+    document.getElementById('legal-content').innerHTML = legalContent[tabName];
+}
+
+// 7. Quiz Logic
+let currentQ = 0; let score = 0;
+function renderQuiz() {
+    if (currentQ >= quizData.length) {
+        document.getElementById('quiz-content').innerHTML = `<h3 class="text-center">Quiz Complete!</h3><p class="text-center">Score: ${score}/${quizData.length}</p>`;
+        document.getElementById('next-q-btn').classList.add('hidden');
+        return;
+    }
+    const q = quizData[currentQ];
+    document.getElementById('quiz-content').innerHTML = `
+        <div style="font-size:1.2rem; margin-bottom:20px; font-weight:600;">${currentQ + 1}. ${q.q}</div>
+        <div class="quiz-options">
+            ${q.options.map((opt, i) => `<button class="option-btn" onclick="checkAnswer(${i}, this)">${opt}</button>`).join('')}
+        </div>
+    `;
+    document.getElementById('next-q-btn').classList.add('hidden');
+}
+
+function checkAnswer(idx, btn) {
+    const correct = quizData[currentQ].correct;
+    const buttons = document.querySelectorAll('.option-btn');
+    buttons.forEach(b => b.style.pointerEvents = 'none');
+    
+    if (idx === correct) {
+        btn.classList.add('correct'); score++;
+    } else {
+        btn.classList.add('wrong'); buttons[correct].classList.add('correct');
+    }
+    document.getElementById('q-score').innerText = `Score: ${score}/${quizData.length}`;
+    document.getElementById('next-q-btn').classList.remove('hidden');
+}
+
+function nextQuestion() {
+    currentQ++;
+    renderQuiz();
+}
+
+// 8. Utilities
+function openModal(id) { document.getElementById(id).classList.add('active'); }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+function showToast(msg) {
+    const t = document.createElement('div'); t.className='toast'; t.innerText=msg;
+    document.body.appendChild(t); setTimeout(() => t.remove(), 3000);
+}
+
+document.querySelectorAll('form').forEach(f => {
+    f.addEventListener('submit', function(e){
+        const btn = this.querySelector('button[type="submit"]');
+        const orig = btn.innerText;
+        btn.innerText = "Processing...";
+        setTimeout(() => { showToast("Request Sent Successfully!"); btn.innerText=orig; }, 1500);
+    });
+});
+
+// Init
+renderCourses();
+renderExtraLessons(); // Render the massive list
+renderQuiz();
+
+window.onclick = function(e) {
+    if (e.target.classList.contains('modal-overlay')) closeModal(e.target.id);
+}
+
+/* --- 9. MATRIX BACKGROUND ANIMATION --- */
+const canvas = document.getElementById('code-bg');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*";
+const fontSize = 14;
+const columns = canvas.width / fontSize;
+const drops = [];
+
+for (let x = 0; x < columns; x++) {
+    drops[x] = 1;
+}
+
+function drawMatrix() {
+    ctx.fillStyle = "rgba(2, 6, 23, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#3b82f6"; 
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+        }
+        drops[i]++;
+    }
+}
+
+setInterval(drawMatrix, 33);
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
 </script>
 
 </body>
