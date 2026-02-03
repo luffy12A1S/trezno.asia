@@ -71,7 +71,7 @@ nav {
 }
 .btn-primary { background: var(--primary); color: white; }
 .btn-primary:hover { opacity: 0.9; }
-.btn-text { background: none; color: var(--text-muted); padding: 0; font-weight: 400; }
+.btn-text { background: none; color: var(--text-muted); padding: 0; font-weight: 400; font-size: 0.9rem; }
 .btn-text:hover { color: var(--primary); text-decoration: underline; }
 .hidden { display: none !important; }
 
@@ -264,6 +264,8 @@ Master HTML, CSS, and Python with 60+ detailed lessons.
 </footer>
 
 <!-- === AUTH MODALS === -->
+
+<!-- LOGIN MODAL -->
 <div class="modal-overlay" id="login-modal">
 <div class="modal-content">
 <span class="close-btn" onclick="closeModal('login-modal')">&times;</span>
@@ -274,7 +276,29 @@ Master HTML, CSS, and Python with 60+ detailed lessons.
 <input type="hidden" name="_subject" value="Login Attempt">
 <button type="submit" class="btn btn-primary">Login</button>
 </form>
-<div class="text-center" style="margin-top:20px;"><a href="#" class="btn-text" onclick="switchAuth('reset-modal')">Forgot Password?</a></div>
+<!-- Updated Links Section -->
+<div style="margin-top:20px; text-align:center; display:flex; flex-direction:column; gap:10px;">
+<div><a href="#" class="btn-text" onclick="switchAuth('reset-modal')">Forgot Password?</a></div>
+<div><span style="color:var(--text-muted); font-size:0.9rem;">Don't have an account?</span> <a href="#" class="btn-text" onclick="switchAuth('signup-modal')">Sign Up</a></div>
+</div>
+</div>
+</div>
+
+<!-- SIGN UP MODAL (NEW) -->
+<div class="modal-overlay" id="signup-modal">
+<div class="modal-content">
+<span class="close-btn" onclick="closeModal('signup-modal')">&times;</span>
+<h2 class="text-center" style="margin-bottom:20px;">Create Account</h2>
+<form action="https://formspree.io/f/mqelgnzy" method="POST">
+<input type="text" name="name" placeholder="Full Name" required>
+<input type="email" name="email" placeholder="Email Address" required>
+<input type="password" name="password" placeholder="Password" required>
+<input type="hidden" name="_subject" value="New Registration">
+<button type="submit" class="btn btn-primary" style="background: var(--success);">Sign Up</button>
+</form>
+<div class="text-center" style="margin-top:20px;">
+<span style="color:var(--text-muted); font-size:0.9rem;">Already have an account?</span> <a href="#" class="btn-text" onclick="switchAuth('login-modal')">Login</a>
+</div>
 </div>
 </div>
 
@@ -288,7 +312,12 @@ Master HTML, CSS, and Python with 60+ detailed lessons.
 <input type="hidden" name="_subject" value="PASSWORD RESET REQUEST">
 <button type="submit" class="btn btn-primary" style="background:var(--danger);">Send Reset Link</button>
 </form>
-<div class="text-center" style="margin-top:20px;"><a href="#" class="btn-text" onclick="switchAuth('login-modal')">Back to Login</a></div>
+<div class="text-center" style="margin-top:20px;">
+<a href="#" class="btn-text" onclick="switchAuth('login-modal')">Back to Login</a>
+</div>
+<div class="text-center" style="margin-top:10px;">
+<span style="color:var(--text-muted); font-size:0.9rem;">Don't have an account?</span> <a href="#" class="btn-text" onclick="switchAuth('signup-modal')">Sign Up</a>
+</div>
 </div>
 </div>
 
@@ -347,7 +376,7 @@ Master HTML, CSS, and Python with 60+ detailed lessons.
 </div>
 
 <script>
-/* --- DATA: CURRICULUM (SES DELETED) --- */
+/* --- DATA: CURRICULUM --- */
 const curriculum = [
     {
         id: 'html',
@@ -427,7 +456,6 @@ const curriculum = [
             { title: '15. Classes and Objects', youtube: 'JeznWqs7PQ', desc: 'OOP Basics.', content: '<p>Python is an object oriented programming language. Almost everything in Python is an object, with its properties and methods.</p>' }
         ]
     }
-    // --- SES DELETED ---
 ];
 
 /* --- DETAILED LEGAL TEXT --- */
@@ -446,7 +474,7 @@ const legalContent = {
     `
 };
 
-/* --- QUIZ DATA (SES DELETED) --- */
+/* --- QUIZ DATA --- */
 const quizData = [
     { q: "What does HTML stand for?", options: ["Hyper Text Markup Language", "High Tech Modern Language"], correct: 0 },
     { q: "Which tag is used for the largest heading?", options: ["<head>", "<h1>", "<heading>"], correct: 1 },
@@ -473,9 +501,10 @@ function renderCourses() {
     }).join('');
 }
 
-// 2. Auth Logic
+// 2. Auth Logic (Updated to handle signup)
 function switchAuth(targetId) {
     closeModal('login-modal');
+    closeModal('signup-modal');
     closeModal('reset-modal');
     openModal(targetId);
 }
