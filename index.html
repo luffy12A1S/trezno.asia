@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trezno.asia | Python, HTML & CSS Academy</title>
-<meta name="description" content="Specialized platform for Python, HTML, and CSS.">
+<meta name="description" content="Specialized platform for Python, HTML, and CSS learning.">
 
 <!-- Fonts & Icons -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -166,6 +166,12 @@ footer { background: #000; padding: 60px 0 30px; margin-top: 100px; border-top: 
 .legal-text p, .legal-text ul { margin-bottom: 15px; font-size: 0.9rem; color: var(--text-muted); }
 .legal-text ul { padding-left: 20px; }
 
+/* Checkbox Styling */
+.checkbox-wrapper {
+    display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px; font-size: 0.85rem; color: var(--text-muted);
+}
+.checkbox-wrapper input { width: auto; margin: 0; }
+
 /* Toast */
 .toast { position: fixed; bottom: 20px; right: 20px; background: #1e293b; border-left: 4px solid var(--primary); padding: 15px 25px; border-radius: 8px; color: white; animation: slideIn 0.3s; z-index: 3000; }
 @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
@@ -194,9 +200,9 @@ footer { background: #000; padding: 60px 0 30px; margin-top: 100px; border-top: 
 <!-- Hero Section -->
 <section id="hero" class="hero">
 <div>
-<h1>Code Specialization.<br>In The Matrix.</h1>
+<h1>Master Full-Stack Development.<br>Start Today.</h1>
 <p style="color:var(--text-muted); margin-bottom:30px; font-size:1.2rem; text-shadow:0 2px 4px rgba(0,0,0,0.8);">
-Master HTML, CSS, and Python with 60+ detailed lessons.
+Comprehensive curriculum for Python, HTML, and CSS. Join our academy.
 </p>
 <button class="btn btn-primary" style="font-size:1.1rem; padding:15px 30px;" onclick="document.getElementById('courses').scrollIntoView()">Start Learning</button>
 </div>
@@ -206,7 +212,7 @@ Master HTML, CSS, and Python with 60+ detailed lessons.
 <section id="courses">
 <div class="container">
 <h2 class="text-center" style="font-size:2.5rem; margin-bottom:20px;">The Complete Library</h2>
-<p class="text-center" style="color:var(--text-muted); margin-bottom:50px;">Specialized tracks for Web and Backend.</p>
+<p class="text-center" style="color:var(--text-muted); margin-bottom:50px;">Specialized tracks for Web Development and Backend Logic.</p>
 <div class="courses-grid" id="course-grid"></div>
 </div>
 </section>
@@ -237,7 +243,7 @@ Master HTML, CSS, and Python with 60+ detailed lessons.
 <input type="hidden" name="_replyto" value="{{email}}">
 <select name="subject" required>
 <option value="Support">Technical Support</option>
-<option value="Billing">Billing</option>
+<option value="Billing">Billing Inquiry</option>
 </select>
 <textarea name="message" rows="4" placeholder="How can we help?" required></textarea>
 <input type="hidden" name="_subject" value="Contact from Trezno">
@@ -251,12 +257,16 @@ Master HTML, CSS, and Python with 60+ detailed lessons.
 <footer>
 <div class="container">
 <div class="footer-grid">
-<div><h4>Trezno.asia</h4><p>Specialized Academy for Web & Backend.</p></div>
+<div><h4>Trezno.asia</h4><p>Premium Academy for Web & Backend Technologies.</p></div>
 <div><h4>Contact</h4><p>admin@trezno.asia</p></div>
 <div><h4>Legal</h4><p><a href="#" onclick="openLegalModal('privacy')">Privacy Policy</a></p><p><a href="#" onclick="openLegalModal('terms')">Terms of Service</a></p></div>
 </div>
 <div class="footer-bottom">
-<p class="mb-2"><strong>Trezno Education LLC</strong><br>123 Innovation Boulevard, Tech District<br>Dubai, UAE (P.O. Box 12345)</p>
+<p class="mb-2"><strong>Trezno Education LLC</strong><br>
+<!-- REPLACE WITH REAL ADDRESS -->
+<strong>[Insert Your Real Business Address Here]</strong><br>
+City, Country | P.O. Box [Number]
+</p>
 <p style="margin-top:15px;">&copy; 2026 Trezno.asia. All rights reserved.</p>
 <div class="legal-links" style="margin-top:10px;"><a href="#" onclick="openModal('unsubscribe-modal')">Unsubscribe</a></div>
 </div>
@@ -269,14 +279,13 @@ Master HTML, CSS, and Python with 60+ detailed lessons.
 <div class="modal-overlay" id="login-modal">
 <div class="modal-content">
 <span class="close-btn" onclick="closeModal('login-modal')">&times;</span>
-<h2 class="text-center" style="margin-bottom:20px;">Login</h2>
+<h2 class="text-center" style="margin-bottom:20px;">Student Login</h2>
 <form action="https://formspree.io/f/mqelgnzy" method="POST">
 <input type="email" name="email" placeholder="Email" required>
 <input type="password" name="password" placeholder="Password" required>
 <input type="hidden" name="_subject" value="Login Attempt">
 <button type="submit" class="btn btn-primary">Login</button>
 </form>
-<!-- Updated Links Section -->
 <div style="margin-top:20px; text-align:center; display:flex; flex-direction:column; gap:10px;">
 <div><a href="#" class="btn-text" onclick="switchAuth('reset-modal')">Forgot Password?</a></div>
 <div><span style="color:var(--text-muted); font-size:0.9rem;">Don't have an account?</span> <a href="#" class="btn-text" onclick="switchAuth('signup-modal')">Sign Up</a></div>
@@ -284,7 +293,7 @@ Master HTML, CSS, and Python with 60+ detailed lessons.
 </div>
 </div>
 
-<!-- SIGN UP MODAL (NEW) -->
+<!-- SIGN UP MODAL (UPDATED WITH CHECKBOX) -->
 <div class="modal-overlay" id="signup-modal">
 <div class="modal-content">
 <span class="close-btn" onclick="closeModal('signup-modal')">&times;</span>
@@ -293,8 +302,15 @@ Master HTML, CSS, and Python with 60+ detailed lessons.
 <input type="text" name="name" placeholder="Full Name" required>
 <input type="email" name="email" placeholder="Email Address" required>
 <input type="password" name="password" placeholder="Password" required>
+
+<!-- CRITICAL FOR AMAZON SES APPROVAL -->
+<div class="checkbox-wrapper">
+<input type="checkbox" id="consent" name="consent" required>
+<label for="consent">I agree to the <a href="#" onclick="openLegalModal('terms')">Terms of Service</a> and <a href="#" onclick="openLegalModal('privacy')">Privacy Policy</a>. I understand I may receive educational emails.</label>
+</div>
+
 <input type="hidden" name="_subject" value="New Registration">
-<button type="submit" class="btn btn-primary" style="background: var(--success);">Sign Up</button>
+<button type="submit" class="btn btn-primary" style="background: var(--success);">Create Account</button>
 </form>
 <div class="text-center" style="margin-top:20px;">
 <span style="color:var(--text-muted); font-size:0.9rem;">Already have an account?</span> <a href="#" class="btn-text" onclick="switchAuth('login-modal')">Login</a>
@@ -314,9 +330,6 @@ Master HTML, CSS, and Python with 60+ detailed lessons.
 </form>
 <div class="text-center" style="margin-top:20px;">
 <a href="#" class="btn-text" onclick="switchAuth('login-modal')">Back to Login</a>
-</div>
-<div class="text-center" style="margin-top:10px;">
-<span style="color:var(--text-muted); font-size:0.9rem;">Don't have an account?</span> <a href="#" class="btn-text" onclick="switchAuth('signup-modal')">Sign Up</a>
 </div>
 </div>
 </div>
@@ -386,7 +399,7 @@ const curriculum = [
             { title: '2. HTML Document Structure', youtube: 'kUMe1FH4CHE', desc: 'Head, Body, Doctype.', content: '<p>The basic structure includes a DOCTYPE declaration, an html element, a head element, and a body element.</p>' },
             { title: '3. HTML Headings h1-h6', youtube: 'oz73YPRt-OM', desc: 'Structuring your text.', content: '<p>HTML headings are defined with the <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> tags. <code>&lt;h1&gt;</code> defines the most important heading. <code>&lt;h6&gt;</code> defines the least important heading.</p>' },
             { title: '4. Paragraphs and Breaks', youtube: 'pQ-pHSo568', desc: 'Text formatting basics.', content: '<p>The <code>&lt;p&gt;</code> tag defines a paragraph. Browsers automatically add some white space (a margin) before and after a paragraph.</p>' },
-            { title: '5. Links and Anchors', youtube: 'H6uM1CSPaFQ', desc: 'Connecting pages.', content: '<p>Links are defined with the <code>&lt;a&gt;</code> tag. The <code>href</code> attribute specifies the URL of the page the link goes to.</p>' },
+            { title: '5. Links and Anchors', youtube: 'H6uM1C5Q2iGk', desc: 'Connecting pages.', content: '<p>Links are defined with the <code>&lt;a&gt;</code> tag. The <code>href</code> attribute specifies the URL of the page the link goes to.</p>' },
             { title: '6. Images', youtube: 'S4T30Q3Ii1w', desc: 'Adding visuals.', content: '<p>Images are defined with the <code>&lt;img&gt;</code> tag. It is an empty tag, meaning it has no closing tag.</p>' },
             { title: '7. Lists (Ordered & Unordered)', youtube: 'pP_p6tWQhTg', desc: 'Bullet points and numbers.', content: '<p><strong>Unordered:</strong> Starts with <code>&lt;ul&gt;</code>. List items start with <code>&lt;li&gt;</code>.<br><strong>Ordered:</strong> Starts with <code>&lt;ol&gt;</code>.</p>' },
             { title: '8. Tables', youtube: 'wWbVBkXcYkA', desc: 'Data representation.', content: '<p>Tables are defined with the <code>&lt;table&gt;</code> tag. A table is divided into rows (with <code>&lt;tr&gt;</code>), and each row is divided into data cells (with <code>&lt;td&gt;</code>).</p>' },
@@ -408,7 +421,7 @@ const curriculum = [
             { title: '3. Colors and Backgrounds', youtube: 'W6GTOt7QlBk', desc: 'Visual appeal.', content: '<p>You can set colors by name, HEX, RGB, or HSL.</p>' },
             { title: '4. Fonts and Typography', youtube: 'M5qYF7f3c3o', desc: 'Text styling.', content: '<p>The <code>font-family</code> property should hold several font names as a "fallback" system.</p>' },
             { title: '5. The Box Model', youtube: 'rEB5SeMsmSU', desc: 'Margins, Borders, Padding.', content: '<p>In CSS, the term "box model" is used when talking about design and layout.</p>' },
-            { title: '6. Borders', youtube: 'o0aM9oB7hL0', desc: 'Styling edges.', content: '<p>The CSS <code>border</code> property allows you to specify the style, width, and color of an element\'s border.</p>' },
+            { title: '6. Borders', youtube: 'o0aM9jB7hL0', desc: 'Styling edges.', content: '<p>The CSS <code>border</code> property allows you to specify the style, width, and color of an element\'s border.</p>' },
             { title: '7. Margins', youtube: '2oL-4cQ8zYs', desc: 'Spacing outside.', content: '<p>The CSS <code>margin</code> properties are used to create space around elements.</p>' },
             { title: '8. Padding', youtube: 'g5wP3aJqJ0Q', desc: 'Spacing inside.', content: '<p>The CSS <code>padding</code> properties are used to generate space around an element\'s content.</p>' },
             { title: '9. Height and Width', youtube: '1oX1C5Q2iGk', desc: 'Dimensions.', content: '<p>The <code>height</code> and <code>width</code> properties are used to set the height and width of an element.</p>' },
@@ -458,19 +471,31 @@ const curriculum = [
     }
 ];
 
-/* --- DETAILED LEGAL TEXT --- */
+/* --- DETAILED LEGAL TEXT (EXPANDED FOR AMAZON) --- */
 const legalContent = {
     privacy: `
-        <h3>1. Information We Collect</h3><p>We collect information you provide directly to us, such as name and email, solely for account management.</p>
-        <h3>2. Use of Information</h3><p>We use your information to: 1) Create and manage your account. 2) Send transactional emails (password resets).</p>
-        <h3>3. Data Security</h3><p>We implement appropriate technical and organizational measures to protect your personal data.</p>
-        <h3>4. No Data Selling</h3><p><strong>We do not sell, rent, or trade your personal information.</strong></p>
+        <h3>1. Privacy Policy</h3>
+        <p>At Trezno.asia, we value your privacy. This policy outlines how we collect, use, and protect your data.</p>
+        <h3>2. Data Collection</h3>
+        <p>We collect necessary data such as Name and Email Address solely for account creation and service delivery. We do not collect sensitive personal information without your explicit consent.</p>
+        <h3>3. Usage of Data</h3>
+        <p>Your data is used to provide access to our courses, send important account notifications (e.g., password resets), and improve user experience. We do not sell your data to third parties.</p>
+        <h3>4. Security</h3>
+        <p>We implement industry-standard security measures to protect your information against unauthorized access.</p>
+        <h3>5. Your Rights</h3>
+        <p>You have the right to request access, correction, or deletion of your personal data by contacting admin@trezno.asia.</p>
     `,
     terms: `
-        <h3>1. Acceptance</h3><p>By accessing Trezno.asia, you agree to be bound by these terms.</p>
-        <h3>2. Educational Use</h3><p>All content is for educational purposes. You agree not to use code learned here for malicious activities.</p>
-        <h3>3. Intellectual Property</h3><p>Content on this website (text, code, videos) is property of Trezno.asia.</p>
-        <h3>4. Limitation of Liability</h3><p>In no event shall Trezno.asia be liable for any indirect damages.</p>
+        <h3>1. Terms of Service</h3>
+        <p>By accessing Trezno.asia, you agree to abide by these Terms of Service.</p>
+        <h3>2. User Accounts</h3>
+        <p>You are responsible for maintaining the confidentiality of your account credentials. You agree to notify us immediately of any unauthorized use.</p>
+        <h3>3. Acceptable Use</h3>
+        <p>Our content is for educational purposes only. You may not use the platform for illegal activities, reverse engineering our content, or attempting to disrupt our services.</p>
+        <h3>4. Intellectual Property</h3>
+        <p>All materials on Trezno.asia, including text, graphics, logos, and software, are the property of Trezno Education LLC and are protected by copyright laws.</p>
+        <h3>5. Limitation of Liability</h3>
+        <p>Trezno.asia shall not be liable for any indirect, incidental, special, or consequential damages resulting from the use or inability to use our services.</p>
     `
 };
 
