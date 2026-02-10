@@ -183,6 +183,22 @@ footer { background: #000; padding: 60px 0 30px; margin-top: 100px; border-top: 
 /* Toast */
 .toast { position: fixed; bottom: 20px; right: 20px; background: #1e293b; border-left: 4px solid var(--primary); padding: 15px 25px; border-radius: 8px; color: white; animation: slideIn 0.3s; z-index: 3000; }
 @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+/* --- EMAIL PREVIEW STYLES --- */
+.email-preview-list {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px;
+}
+.email-btn {
+    padding: 15px; background: #334155; border: 1px solid #475569; color: white; border-radius: 6px; cursor: pointer; transition: 0.2s; text-align: center; font-weight: 600;
+}
+.email-btn:hover, .email-btn.active { background: var(--primary); border-color: var(--primary); }
+
+.email-frame-container {
+    width: 100%; height: 500px; background: white; border-radius: 8px; overflow: hidden; border: 4px solid #1e293b;
+}
+.email-frame-container iframe {
+    width: 100%; height: 100%; border: none;
+}
 </style>
 </head>
 <body>
@@ -267,7 +283,13 @@ Comprehensive curriculum for Python, HTML, CSS, JS, and Cloud. Join our academy 
 <div class="footer-grid">
 <div><h4>Trezno.asia</h4><p>Premium Academy for Web & Backend Technologies.</p></div>
 <div><h4>Contact</h4><p>admin@trezno.asia</p></div>
-<div><h4>Legal</h4><p><a href="#" onclick="openLegalModal('privacy')">Privacy Policy</a></p><p><a href="#" onclick="openLegalModal('terms')">Terms of Service</a></p></div>
+<div>
+    <h4>Transparency</h4>
+    <!-- زر الموديل ديال الإيميلات -->
+    <p><a href="#" onclick="openEmailPreview()" style="color:var(--text-muted); text-decoration:none; font-size:0.9rem;">View Email Templates</a></p>
+    <p><a href="#" onclick="openLegalModal('privacy')" style="color:var(--text-muted); text-decoration:none;">Privacy Policy</a></p>
+    <p><a href="#" onclick="openLegalModal('terms')" style="color:var(--text-muted); text-decoration:none;">Terms of Service</a></p>
+</div>
 </div>
 <div class="footer-bottom">
 <p class="mb-2"><strong>Trezno Education LLC</strong><br>
@@ -368,6 +390,35 @@ Comprehensive curriculum for Python, HTML, CSS, JS, and Cloud. Join our academy 
 </div>
 </div>
 
+<!-- === EMAIL TEMPLATES PREVIEW MODAL (NEW) === -->
+<div class="modal-overlay" id="email-templates-modal">
+<div class="modal-content large" style="background: var(--bg-dark);">
+    <div class="lesson-header">
+        <span class="close-btn" onclick="closeModal('email-templates-modal')">&times;</span>
+        <h2>Email Templates Gallery</h2>
+        <p style="color:var(--text-muted);">Preview our transactional emails (Live Demo).</p>
+    </div>
+    <div class="lesson-body">
+        <!-- زر باش تختار الرسالة -->
+        <div class="email-preview-list">
+            <button class="email-btn active" onclick="loadEmail('welcome')">1. Welcome Email</button>
+            <button class="email-btn" onclick="loadEmail('reset')">2. Password Reset</button>
+            <button class="email-btn" onclick="loadEmail('certificate')">3. Certificate</button>
+            <button class="email-btn" onclick="loadEmail('progress')">4. Progress Report</button>
+        </div>
+
+        <!-- المكان اللي غادي تبان فيه الرسالة -->
+        <div class="email-frame-container">
+            <iframe id="email-frame" srcdoc=""></iframe>
+        </div>
+        
+        <div style="margin-top:20px; text-align:center; font-size:0.8rem; color:var(--text-muted);">
+            <p>These templates are used by our system to communicate with students.</p>
+        </div>
+    </div>
+</div>
+</div>
+
 <!-- === LEGAL MODALS === -->
 <div class="modal-overlay" id="legal-modal">
 <div class="modal-content" style="max-width:800px;">
@@ -395,6 +446,42 @@ Comprehensive curriculum for Python, HTML, CSS, JS, and Cloud. Join our academy 
 </div>
 
 <script>
+// --- EMAIL TEMPLATES DATA (Embedded HTML) ---
+// هاد المتغيرات غادي يبني الرسائل جاهزين للعرض
+const emailTemplates = {
+    welcome: `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{font-family:'Inter',sans-serif;background:#f1f5f9;color:#1e293b;padding:20px}.container{max-width:600px;margin:0 auto;background:#fff;border-radius:8px;overflow:hidden;border:1px solid #e2e8f0}.header{background:#3b82f6;padding:20px;text-align:center}.header h1{margin:0;font-size:24px;color:#fff}.content{padding:30px}.btn{display:inline-block;padding:12px 24px;background:#3b82f6;color:#fff;text-decoration:none;border-radius:6px;font-weight:bold;margin-top:20px}.footer{padding:20px;text-align:center;font-size:12px;color:#64748b;border-top:1px solid #e2e8f0}</style></head><body><div class="container"><div class="header"><h1>Trezno.asia</h1></div><div class="content"><p>Hello {{name}},</p><p>Welcome to Academy! Verify your email to start.</p><p style="text-align:center;"><a href="#" class="btn">Verify Email</a></p></div><div class="footer"><p>&copy; 2026 Trezno Education LLC.</p></div></div></body></html>`,
+
+    reset: `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{font-family:'Inter',sans-serif;background:#0f172a;color:#f8fafc;padding:20px}.container{max-width:600px;margin:0 auto;background:#1e293b;border-radius:8px;overflow:hidden;border:1px solid #334155}.header{background:#ef4444;padding:20px;text-align:center}.header h1{margin:0;font-size:24px;color:#fff}.content{padding:30px}.alert{background:rgba(239,68,68,0.2);border:1px solid #ef4444;color:#ef4444;padding:15px;border-radius:6px;font-size:14px;margin-bottom:20px}.btn{display:inline-block;padding:12px 24px;background:#3b82f6;color:#fff;text-decoration:none;border-radius:6px;font-weight:bold;margin-top:20px}.footer{padding:20px;text-align:center;font-size:12px;color:#94a3b8;border-top:1px solid #334155}</style></head><body><div class="container"><div class="header"><h1>Trezno Security</h1></div><div class="content"><p>Hello {{name}},</p><div class="alert">We received a request to reset your password.</div><p style="text-align:center;"><a href="#" class="btn">Reset Password</a></p></div><div class="footer"><p>Trezno Education LLC</p></div></div></body></html>`,
+
+    certificate: `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{font-family:'Inter',sans-serif;background:#f1f5f9;color:#0f172a;padding:20px}.container{max-width:600px;margin:0 auto;background:#fff;border-radius:8px;overflow:hidden;border:1px solid #e2e8f0;text-align:center}.header{background:#fbbf24;padding:30px;color:#0f172a}.header h1{margin:0;font-size:32px;font-weight:800}.content{padding:30px}.course-name{font-size:20px;color:#3b82f6;font-weight:bold;margin:15px 0}.btn{display:inline-block;padding:12px 30px;background:#3b82f6;color:#fff;text-decoration:none;border-radius:6px;font-weight:bold;margin:20px 5px}.footer{padding:20px;text-align:center;font-size:12px;color:#64748b;border-top:1px solid #e2e8f0}</style></head><body><div class="container"><div class="header"><h1>CONGRATULATIONS!</h1></div><div class="content"><p>Well done, {{name}}!</p><p>You have completed: <br><span class="course-name">"HTML5 Mastery"</span></p><p><a href="#" class="btn">Download Certificate</a></p></div><div class="footer"><p>Trezno.asia</p></div></div></body></html>`,
+
+    progress: `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{font-family:'Inter',sans-serif;background:#f1f5f9;color:#0f172a;padding:20px}.container{max-width:600px;margin:0 auto;background:#fff;border-radius:8px;overflow:hidden;border:1px solid #e2e8f0}.header{background:#10b981;padding:20px;text-align:center;color:#0f172a}.header h2{margin:0;font-size:24px;font-weight:800}.content{padding:30px}.progress-bar-container{background:#e2e8f0;border-radius:10px;height:10px;width:100%;margin:20px 0}.progress-bar{background:#10b981;height:100%;border-radius:10px;text-align:right}.stat-box{background:#f8fafc;padding:15px;border-radius:6px;margin-bottom:20px;border-left:4px solid #3b82f6}.btn{display:block;width:100%;padding:15px;background:#3b82f6;color:#fff;text-decoration:none;border-radius:6px;font-weight:bold;text-align:center;margin-top:20px}.footer{padding:20px;text-align:center;font-size:12px;color:#64748b;border-top:1px solid #e2e8f0}</style></head><body><div class="container"><div class="header"><h2>You are making progress!</h2></div><div class="content"><p>Hello {{name}},</p><div class="stat-box"><strong>Your Progress:</strong> 75% Complete<div class="progress-bar-container"><div class="progress-bar" style="width:75%"></div></div></div><a href="#" class="btn">Resume Learning Now</a></div><div class="footer"><p>Trezno.asia</p></div></div></body></html>`
+};
+
+// --- FUNCTION TO LOAD EMAIL ---
+function openEmailPreview() {
+    openModal('email-templates-modal');
+    loadEmail('welcome'); // Load first by default
+}
+
+function loadEmail(type) {
+    // Update buttons active state
+    document.querySelectorAll('.email-btn').forEach(b => b.classList.remove('active'));
+    // Find button by text is tricky, so we use event.target if passed, but here simple click triggers it.
+    // We need to find the button that called this. Simple way: event.target is not available in this scope easily without passing 'event'.
+    // Let's just iterate and match onclick text roughly or just set active class manually below.
+    // Better approach: pass 'this' or simply find by content. For simplicity:
+    const buttons = document.querySelectorAll('.email-btn');
+    if(type === 'welcome') buttons[0].classList.add('active');
+    if(type === 'reset') buttons[1].classList.add('active');
+    if(type === 'certificate') buttons[2].classList.add('active');
+    if(type === 'progress') buttons[3].classList.add('active');
+
+    // Load into iframe
+    const iframe = document.getElementById('email-frame');
+    iframe.srcdoc = emailTemplates[type];
+}
+
 // --- HELPER FUNCTION FOR GENERATING CONTENT ---
 function createLesson(title, desc, code, topic) {
     return `
@@ -413,36 +500,36 @@ const curriculum = [
         title: 'HTML5 Mastery (30 Lessons)',
         tag: 'tag-web',
         lessons: [
-            { title: '1. Introduction to HTML', desc: 'Structure of the web.', content: createLesson('HTML Introduction', 'HTML is the skeleton of all web pages.', '&lt;!DOCTYPE html&gt;\n&lt;html&gt;...&lt;/html&gt;', 'HTML') },
-            { title: '2. Document Structure', desc: 'Head, Body, Doctype.', content: createLesson('Document Structure', 'Understanding the DOM tree.', '&lt;head&gt;&lt;title&gt;...&lt;/title&gt;&lt;/head&gt;\n&lt;body&gt;...&lt;/body&gt;', 'HTML') },
-            { title: '3. Headings h1-h6', desc: 'Structuring your text.', content: createLesson('Headings', 'Semantic hierarchy.', '&lt;h1&gt;Main Title&lt;/h1&gt;\n&lt;h2&gt;Subtitle&lt;/h2&gt;', 'HTML') },
-            { title: '4. Paragraphs and Breaks', desc: 'Text formatting basics.', content: createLesson('Paragraphs', 'Block level text elements.', '&lt;p&gt;This is a paragraph.&lt;/p&gt;\n&lt;br&gt;', 'HTML') },
-            { title: '5. Links and Anchors', desc: 'Connecting pages.', content: createLesson('Hyperlinks', 'Href and target attributes.', '&lt;a href="#"&gt;Click Here&lt;/a&gt;', 'HTML') },
-            { title: '6. Images', desc: 'Adding visuals.', content: createLesson('Images', 'Src, Alt, and Title.', '&lt;img src="image.jpg" alt="Description"&gt;', 'HTML') },
-            { title: '7. Unordered Lists', desc: 'Bullet points.', content: createLesson('Lists', 'Ul and Li tags.', '&lt;ul&gt;&lt;li&gt;Item 1&lt;/li&gt;&lt;/ul&gt;', 'HTML') },
-            { title: '8. Ordered Lists', desc: 'Numbered lists.', content: createLesson('Ordered Lists', 'Ol and Li tags.', '&lt;ol&gt;&lt;li&gt;Step 1&lt;/li&gt;&lt;/ol&gt;', 'HTML') },
-            { title: '9. Tables Basics', desc: 'Data representation.', content: createLesson('Tables', 'Table, Tr, Td structure.', '&lt;table&gt;&lt;tr&gt;&lt;td&gt;Data&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;', 'HTML') },
-            { title: '10. Tables Advanced', desc: 'Thead, Tfoot, Th.', content: createLesson('Table Semantics', 'Advanced table headers.', '&lt;thead&gt;&lt;th&gt;Title&lt;/th&gt;&lt;/thead&gt;', 'HTML') },
-            { title: '11. Forms and Inputs', desc: 'User interaction.', content: createLesson('Forms', 'Get user data.', '&lt;form&gt;&lt;input type="text"&gt;&lt;/form&gt;', 'HTML') },
-            { title: '12. Input Types', desc: 'Text, Password, Email.', content: createLesson('Input Types', 'Native validation.', '&lt;input type="email" required&gt;', 'HTML') },
-            { title: '13. Divs and Spans', desc: 'Containers.', content: createLesson('Containers', 'Block vs Inline.', '&lt;div&gt;Block&lt;/div&gt;\n&lt;span&gt;Inline&lt;/span&gt;', 'HTML') },
-            { title: '14. Semantic HTML', desc: 'Header, Nav, Footer.', content: createLesson('Semantic Tags', 'SEO and Accessibility.', '&lt;header&gt;...&lt;/header&gt;\n&lt;nav&gt;...&lt;/nav&gt;', 'HTML') },
-            { title: '15. Meta Tags', desc: 'SEO and Viewport.', content: createLesson('Metadata', 'Page information.', '&lt;meta name="viewport" ...&gt;', 'HTML') },
-            { title: '16. Iframes', desc: 'Embedding content.', content: createLesson('Iframes', 'Embed external sites.', '&lt;iframe src="..."&gt;&lt;/iframe&gt;', 'HTML') },
+            { title: '1. Introduction to HTML', desc: 'Structure of the web.', content: createLesson('HTML Introduction', 'HTML is the skeleton of all web pages.', '<!DOCTYPE html>\n<html>...</html>', 'HTML') },
+            { title: '2. Document Structure', desc: 'Head, Body, Doctype.', content: createLesson('Document Structure', 'Understanding the DOM tree.', '<head><title>...</title></head>\n<body>...</body>', 'HTML') },
+            { title: '3. Headings h1-h6', desc: 'Structuring your text.', content: createLesson('Headings', 'Semantic hierarchy.', '<h1>Main Title</h1>\n<h2>Subtitle</h2>', 'HTML') },
+            { title: '4. Paragraphs and Breaks', desc: 'Text formatting basics.', content: createLesson('Paragraphs', 'Block level text elements.', '<p>This is a paragraph.</p>\n<br>', 'HTML') },
+            { title: '5. Links and Anchors', desc: 'Connecting pages.', content: createLesson('Hyperlinks', 'Href and target attributes.', '<a href="#">Click Here</a>', 'HTML') },
+            { title: '6. Images', desc: 'Adding visuals.', content: createLesson('Images', 'Src, Alt, and Title.', '<img src="image.jpg" alt="Description">', 'HTML') },
+            { title: '7. Unordered Lists', desc: 'Bullet points.', content: createLesson('Lists', 'Ul and Li tags.', '<ul><li>Item 1</li></ul>', 'HTML') },
+            { title: '8. Ordered Lists', desc: 'Numbered lists.', content: createLesson('Ordered Lists', 'Ol and Li tags.', '<ol><li>Step 1</li></ol>', 'HTML') },
+            { title: '9. Tables Basics', desc: 'Data representation.', content: createLesson('Tables', 'Table, Tr, Td structure.', '<table><tr><td>Data</td></tr></table>', 'HTML') },
+            { title: '10. Tables Advanced', desc: 'Thead, Tfoot, Th.', content: createLesson('Table Semantics', 'Advanced table headers.', '<thead><th>Title</th></thead>', 'HTML') },
+            { title: '11. Forms and Inputs', desc: 'User interaction.', content: createLesson('Forms', 'Get user data.', '<form><input type="text"></form>', 'HTML') },
+            { title: '12. Input Types', desc: 'Text, Password, Email.', content: createLesson('Input Types', 'Native validation.', '<input type="email" required>', 'HTML') },
+            { title: '13. Divs and Spans', desc: 'Containers.', content: createLesson('Containers', 'Block vs Inline.', '<div>Block</div>\n<span>Inline</span>', 'HTML') },
+            { title: '14. Semantic HTML', desc: 'Header, Nav, Footer.', content: createLesson('Semantic Tags', 'SEO and Accessibility.', '<header>...</header>\n<nav>...</nav>', 'HTML') },
+            { title: '15. Meta Tags', desc: 'SEO and Viewport.', content: createLesson('Metadata', 'Page information.', '<meta name="viewport" ...>', 'HTML') },
+            { title: '16. Iframes', desc: 'Embedding content.', content: createLesson('Iframes', 'Embed external sites.', '<iframe src="..."></iframe>', 'HTML') },
             { title: '17. HTML Entities', desc: 'Special characters.', content: createLesson('Entities', 'Symbols like &copy; &amp;', '&amp;copy; 2023', 'HTML') },
-            { title: '18. Audio Tag', desc: 'Embedding sound.', content: createLesson('Audio', 'HTML5 Media.', '&lt;audio controls&gt;...&lt;/audio&gt;', 'HTML') },
-            { title: '19. Video Tag', desc: 'Embedding movies.', content: createLesson('Video', 'HTML5 Media.', '&lt;video controls&gt;...&lt;/video&gt;', 'HTML') },
-            { title: '20. HTML5 Canvas', desc: 'Drawing graphics.', content: createLesson('Canvas', 'Scriptable graphics.', '&lt;canvas id="myCanvas"&gt;&lt;/canvas&gt;', 'HTML') },
-            { title: '21. SVG Basics', desc: 'Vector graphics.', content: createLesson('SVG', 'Scalable Vector Graphics.', '&lt;svg&gt;...&lt;/svg&gt;', 'HTML') },
-            { title: '22. Data Attributes', desc: 'Custom data.', content: createLesson('Data Attributes', 'data-* attributes.', '&lt;div data-id="5"&gt;...&lt;/div&gt;', 'HTML') },
-            { title: '23. Class vs Id', desc: 'CSS selectors.', content: createLesson('Selectors', 'Hooking CSS to HTML.', '&lt;div id="unique" class="group"&gt;', 'HTML') },
-            { title: '24. Global Attributes', desc: 'Title, Lang, Tabindex.', content: createLesson('Global Attributes', 'Attributes available everywhere.', '&lt;p lang="en" title="Tip"&gt;', 'HTML') },
-            { title: '25. Form Buttons', desc: 'Submit, Reset.', content: createLesson('Buttons', 'Triggering actions.', '&lt;button type="submit"&gt;Send&lt;/button&gt;', 'HTML') },
-            { title: '26. Dropdowns (Select)', desc: 'Choice lists.', content: createLesson('Select Menu', 'Option tags.', '&lt;select&gt;&lt;option&gt;A&lt;/option&gt;&lt;/select&gt;', 'HTML') },
-            { title: '27. Textarea', desc: 'Multi-line input.', content: createLesson('Textarea', 'Comments and messages.', '&lt;textarea&gt;...&lt;/textarea&gt;', 'HTML') },
-            { title: '28. Progress and Meter', desc: 'Indicators.', content: createLesson('Progress Bars', 'Visual feedback.', '&lt;progress value="70" max="100"&gt;&lt;/progress&gt;', 'HTML') },
-            { title: '29. Details and Summary', desc: 'Accordion widgets.', content: createLesson('Details/Summary', 'Native collapsible.', '&lt;details&gt;&lt;summary&gt;Click&lt;/summary&gt;...&lt;/details&gt;', 'HTML') },
-            { title: '30. Best Practices', desc: 'Indentation, Comments.', content: createLesson('Code Quality', 'Maintainable HTML.', '&lt;!-- Comment --&gt;', 'HTML') }
+            { title: '18. Audio Tag', desc: 'Embedding sound.', content: createLesson('Audio', 'HTML5 Media.', '<audio controls>...</audio>', 'HTML') },
+            { title: '19. Video Tag', desc: 'Embedding movies.', content: createLesson('Video', 'HTML5 Media.', '<video controls>...</video>', 'HTML') },
+            { title: '20. HTML5 Canvas', desc: 'Drawing graphics.', content: createLesson('Canvas', 'Scriptable graphics.', '<canvas id="myCanvas"></canvas>', 'HTML') },
+            { title: '21. SVG Basics', desc: 'Vector graphics.', content: createLesson('SVG', 'Scalable Vector Graphics.', '<svg>...</svg>', 'HTML') },
+            { title: '22. Data Attributes', desc: 'Custom data.', content: createLesson('Data Attributes', 'data-* attributes.', '<div data-id="5">...</div>', 'HTML') },
+            { title: '23. Class vs Id', desc: 'CSS selectors.', content: createLesson('Selectors', 'Hooking CSS to HTML.', '<div id="unique" class="group">', 'HTML') },
+            { title: '24. Global Attributes', desc: 'Title, Lang, Tabindex.', content: createLesson('Global Attributes', 'Attributes available everywhere.', '<p lang="en" title="Tip">', 'HTML') },
+            { title: '25. Form Buttons', desc: 'Submit, Reset.', content: createLesson('Buttons', 'Triggering actions.', '<button type="submit">Send</button>', 'HTML') },
+            { title: '26. Dropdowns (Select)', desc: 'Choice lists.', content: createLesson('Select Menu', 'Option tags.', '<select><option>A</option></select>', 'HTML') },
+            { title: '27. Textarea', desc: 'Multi-line input.', content: createLesson('Textarea', 'Comments and messages.', '<textarea>...</textarea>', 'HTML') },
+            { title: '28. Progress and Meter', desc: 'Indicators.', content: createLesson('Progress Bars', 'Visual feedback.', '<progress value="70" max="100"></progress>', 'HTML') },
+            { title: '29. Details and Summary', desc: 'Accordion widgets.', content: createLesson('Details/Summary', 'Native collapsible.', '<details><summary>Click</summary>...</details>', 'HTML') },
+            { title: '30. Best Practices', desc: 'Indentation, Comments.', content: createLesson('Code Quality', 'Maintainable HTML.', '<!-- Comment -->', 'HTML') }
         ]
     },
     {
@@ -581,7 +668,7 @@ const legalContent = {
         <h3>3. Acceptable Use</h3>
         <p>Our content is for educational purposes only. You may not use the platform for illegal activities, reverse engineering our content, or attempting to disrupt our services.</p>
         <h3>4. Intellectual Property</h3>
-        <p>All materials on Trezno.asia, including text, graphics, logos, and software, are the property of Trezno Education LLC and are protected by copyright laws.</p>
+        <p>All materials on Trezno.asia, including text, graphics, logos, and software, are property of Trezno Education LLC and are protected by copyright laws.</p>
         <h3>5. Limitation of Liability</h3>
         <p>Trezno.asia shall not be liable for any indirect, incidental, special, or consequential damages resulting from use or inability to use our services.</p>
     `
@@ -602,7 +689,6 @@ const quizData = [
 function renderCourses() {
     const grid = document.getElementById('course-grid');
     grid.innerHTML = curriculum.map(c => {
-        // Fallback for tags not defined in original CSS if any, but we added them.
         let tagClass = c.tag || 'tag-web'; 
         return `
         <div class="course-card">
@@ -752,7 +838,7 @@ const fontSize = 14;
 const columns = canvas.width / fontSize;
 const drops = [];
 
-for (let x = 0; x < columns; x++) {
+for(let x = 0; x < columns; x++) {
     drops[x] = 1;
 }
 
